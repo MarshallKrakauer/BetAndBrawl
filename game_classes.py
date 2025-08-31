@@ -83,6 +83,7 @@ class Bout:
         self.away_wins = 0
         self.bout_winner = 'Draw'
         self.verbose = False
+        self.tko_threshold = 3
 
     def play_round(self):
         home_card = self.home_deck.draw_card()
@@ -109,7 +110,7 @@ class Bout:
             if card_difference >= self.ko_threshold:
                 print("HOME PUNCH KO")
                 self.has_ko, self.has_punch_ko = True, True
-            if self.round_streak == 3:
+            if self.round_streak == self.tko_threshold:
                 print("HOME TKO")
                 self.has_ko, self.has_tko = True, True
 
@@ -127,7 +128,7 @@ class Bout:
             if card_difference >= self.ko_threshold:
                 print("AWAY PUNCH KO")
                 self.has_ko, self.has_punch_ko = True, True
-            if self.round_streak == 3:
+            if self.round_streak == self.tko_threshold:
                 print("AWAY TKO")
                 self.has_ko, self.has_tko = True, True
         else:

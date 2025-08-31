@@ -17,16 +17,15 @@ if __name__ == '__main__':
     # 10 is Away TKO
     # 11, 12, 13 are draw
     home_win_count, away_win_count, draw_count, ko_count = 0, 0, 0, 0
-    tko_count, punch_ko_count, decision_count = 0, 0, 0
+    home_ko_count, home_decision_count, away_ko_count, away_decision_count = 0, 0, 0, 0
+    ko_count, tko_count, punch_ko_count, decision_count = 0, 0, 0, 0
     random.seed(15)
-    real_card = Card(5, )
-    num_fights = 100
+    num_fights = 1000
     fight_counter = 1
     while fight_counter <= num_fights:
         scientist_deck = Deck()
         engineer_deck = Deck()
         my_bout = Bout(home_deck=scientist_deck, away_deck=engineer_deck)
-        # my_bout.show_rounds()
         my_bout.fight_bout()
         result_of_fight = my_bout.get_results()
         if result_of_fight['winner'] == 'home':
@@ -35,6 +34,15 @@ if __name__ == '__main__':
             away_win_count += 1
         else:
             draw_count += 1
+
+        if result_of_fight['winner'] == 'home' and result_of_fight['ko_win'] == 1:
+            home_ko_count += 1
+        elif result_of_fight['winner'] == 'home' and result_of_fight['ko_win'] == 0:
+            home_decision_count += 1
+        elif result_of_fight['winner'] == 'away' and result_of_fight['ko_win'] == 1:
+            away_ko_count += 1
+        elif result_of_fight['winner'] == 'away' and result_of_fight['ko_win'] == 0:
+            away_decision_count += 1
         ko_count += result_of_fight['ko_win']
         tko_count += result_of_fight['tko_win']
         punch_ko_count += result_of_fight['punch_ko_win']
@@ -43,10 +51,17 @@ if __name__ == '__main__':
         print("End of Fight #", str(fight_counter))
         fight_counter += 1
 
+    print("#### WIN METHODS ####")
     print('Decision Count', decision_count)
     print('KO count', ko_count)
     print('TKO Count', tko_count)
     print('Punch KO Count', punch_ko_count)
-    print('Home, Away, Draw', home_win_count, away_win_count, draw_count)
+
+    print("### BET TYPES ###")
+    print('Home KO:', home_ko_count)
+    print('Home Decision:', home_decision_count)
+    print('Draw:', draw_count)
+    print('Away Decision:', away_decision_count)
+    print('Away KO:', away_ko_count)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

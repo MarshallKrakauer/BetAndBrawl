@@ -77,6 +77,8 @@ class Bout:
         self.round_streak = 0
         self.ko_threshold = 5
         self.has_ko = False
+        self.has_tko = False
+        self.has_punch_ko = False
         self.home_wins = 0
         self.away_wins = 0
         self.bout_winner = 'Draw'
@@ -104,10 +106,10 @@ class Bout:
             self.home_wins += 1
             if card_difference >= self.ko_threshold:
                 print("HOME PUNCH KO")
-                self.has_ko = True
+                self.has_ko, self.has_punch_ko = True, True
             if self.round_streak == 3:
                 print("HOME TKO")
-                self.has_ko = True
+                self.has_ko, self.has_tko = True, True
 
         ## Away Victory
         elif away_card.value > home_card.value:
@@ -122,10 +124,10 @@ class Bout:
             self.away_wins += 1
             if card_difference >= self.ko_threshold:
                 print("AWAY PUNCH KO")
-                self.has_ko = True
+                self.has_ko, self.has_punch_ko = True, True
             if self.round_streak == 3:
                 print("AWAY TKO")
-                self.has_ko = True
+                self.has_ko, self.has_tko = True, True
         else:
             print('DRAW')
             round_result = 'D'
@@ -164,3 +166,16 @@ class Bout:
         print(len(self.round_results))
         print(self.round_results)
         print("THE FINAL RESULT", self.bout_winner, 'by', win_method)
+
+    def get_results(self):
+        if self.has_ko:
+            decision_win = 1
+        else:
+            decision_win = 0
+        result_dict = {'winner': self.bout_winner,
+                       'ko_win': int(self.has_ko),
+                       'tko_win': int(self.has_tko),
+                       'punch_ko_win': int(self.has_punch_ko),
+                       'decision_win': decision_win,
+                       }
+        return result_dict

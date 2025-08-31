@@ -20,23 +20,33 @@ if __name__ == '__main__':
     tko_count, punch_ko_count, decision_count = 0, 0, 0
     random.seed(15)
     real_card = Card(5, )
-    scientist_deck = Deck()
-    engineer_deck = Deck()
-    my_bout = Bout(home_deck=scientist_deck, away_deck=engineer_deck)
-    # my_bout.show_rounds()
-    my_bout.fight_bout()
-    result_of_fight = my_bout.get_results()
-    if result_of_fight['winner'] == 'home':
-        home_win_count += 1
-    elif result_of_fight['winner'] == 'away':
-        away_win_count += 1
-    else:
-        draw_count += 1
-    ko_count += result_of_fight['ko_win']
-    tko_count += result_of_fight['tko_win']
-    punch_ko_count += result_of_fight['punch_ko_win']
-    decision_count
-    print(result_of_fight)
-    print(ko_count, tko_count, punch_ko_count)
+    num_fights = 100
+    fight_counter = 1
+    while fight_counter <= num_fights:
+        scientist_deck = Deck()
+        engineer_deck = Deck()
+        my_bout = Bout(home_deck=scientist_deck, away_deck=engineer_deck)
+        # my_bout.show_rounds()
+        my_bout.fight_bout()
+        result_of_fight = my_bout.get_results()
+        if result_of_fight['winner'] == 'home':
+            home_win_count += 1
+        elif result_of_fight['winner'] == 'away':
+            away_win_count += 1
+        else:
+            draw_count += 1
+        ko_count += result_of_fight['ko_win']
+        tko_count += result_of_fight['tko_win']
+        punch_ko_count += result_of_fight['punch_ko_win']
+        decision_count += result_of_fight['decision_win']
+        print(result_of_fight)
+        print("End of Fight #", str(fight_counter))
+        fight_counter += 1
+
+    print('Decision Count', decision_count)
+    print('KO count', ko_count)
+    print('TKO Count', tko_count)
+    print('Punch KO Count', punch_ko_count)
+    print('Home, Away, Draw', home_win_count, away_win_count, draw_count)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

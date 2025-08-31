@@ -82,21 +82,23 @@ class Bout:
         self.home_wins = 0
         self.away_wins = 0
         self.bout_winner = 'Draw'
+        self.verbose = False
 
     def play_round(self):
         home_card = self.home_deck.draw_card()
         away_card = self.away_deck.draw_card()
         home_value = home_card.value
         away_value = away_card.value
-        print("HOME:", home_card)
-        print("AWAY:", away_card)
+        if self.verbose:
+            print("HOME:", home_card)
+            print("AWAY:", away_card)
         card_difference = 0
         round_result = ''
 
         # HOME VICTORY
         if home_card.value > away_card.value:
             card_difference = home_value - away_value
-            print('HOME WINS')
+            #print('HOME WINS')
             if self.previous_round_winner == 'home':
                 self.round_streak += 1
             else:
@@ -114,7 +116,7 @@ class Bout:
         ## Away Victory
         elif away_card.value > home_card.value:
             card_difference = away_value - home_value
-            print('AWAY WINS')
+            #print('AWAY WINS')
             if self.previous_round_winner == 'away':
                 self.round_streak += 1
             else:
@@ -129,14 +131,14 @@ class Bout:
                 print("AWAY TKO")
                 self.has_ko, self.has_tko = True, True
         else:
-            print('DRAW')
+            #print('DRAW')
             round_result = 'D'
             self.previous_round_winner = 'draw'
             self.round_streak = 0
 
         self.round_results[self.round_number] = round_result
         self.round_number += 1
-        print("### ROUND STREAK ### ", self.round_streak)
+        #print("### ROUND STREAK ### ", self.round_streak)
 
     def fight_bout(self):
         while not self.has_ko and (self.round_number < len(self.round_results)):
@@ -169,9 +171,9 @@ class Bout:
 
     def get_results(self):
         if self.has_ko:
-            decision_win = 1
-        else:
             decision_win = 0
+        else:
+            decision_win = 1
         result_dict = {'winner': self.bout_winner,
                        'ko_win': int(self.has_ko),
                        'tko_win': int(self.has_tko),

@@ -1,5 +1,5 @@
 # This is a sample Python script.
-from game_classes import Card, Deck
+from game_classes import Card, Deck, Bout
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
@@ -12,18 +12,10 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     real_card = Card(5,)
-    real_deck = Deck()
-    #real_deck.shuffle_deck()
-    #real_deck.draw_card()
-    for i in range(10):
-        card = real_deck.draw_card()
-        print(card)
-    real_deck.print_discard()
-    real_deck.print_deck()
-    real_deck.reveal_card()
-
-    #real_deck.reveal_card()
-    #real_deck.print_deck()
-    #print(random.random())
+    scientist_deck = Deck()
+    engineer_deck = Deck()
+    my_bout = Bout(home_deck=scientist_deck, away_deck=engineer_deck)
+    my_bout.show_rounds()
+    my_bout.play_round()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

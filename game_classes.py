@@ -3,8 +3,8 @@ import random
 
 class Card:
     def __init__(self, value, effect=""):
-        self.value = value  # Instance attribute
-        self.effect = effect  # Instance attribute
+        self.value = value
+        self.effect = effect
 
     def __str__(self):
         if self.effect != "":
@@ -92,45 +92,58 @@ class Bout:
             return True
         return False
 
+    def use_support(self, home_needs_support=True):
+        if home_needs_support:
+            self.home_support = 0
+        else:
+            self.away_support = 0
+
     def handle_victory(self, winner, card_difference):
         """Handle common victory logic for both home and away wins."""
 
-        is_ko_pre_support = self.check_for_ko(winner, card_difference)
+        if winner == 'draw':
+            is_ko_pre_support = False
+        else:
+            is_ko_pre_support = self.check_for_ko(winner, card_difference)
 
         if is_ko_pre_support and winner == 'away':
-            support_value = self.away_support
-            self.use_support(False)
+            support_value = self.home_support
+            self.use_support(home_needs_support=True)
             card_difference -= support_value
             if card_difference == 0:
-                winner = 'D'
+                winner = 'draw'
                 card_difference = 0
             elif card_difference < 0:
-                winner = 'H'
+                winner = 'home'
                 card_difference = card_difference * -1
 
         if is_ko_pre_support and winner == 'home':
             support_value = self.away_support
-            self.use_support(False)
+            self.use_support(home_needs_support=False)
             card_difference -= support_value
             if card_difference == 0:
-                winner = 'D'
+                winner = 'draw'
                 card_difference = 0
             elif card_difference < 0:
-                winner = 'A'
+                winner = 'away'
                 card_difference = card_difference * -1
 
         # Update streak
-        if self.previous_round_winner == winner:
-            self.round_streak += 1
+        if winner != 'draw':
+            if self.previous_round_winner == winner:
+                self.round_streak += 1
+            else:
+                self.round_streak = 1
         else:
-            self.round_streak = 1
+            self.previous_round_winner = 'draw'
+            self.round_streak = 0
 
         self.previous_round_winner = winner
 
         # Update win counter
         if winner == 'home':
             self.home_wins += 1
-        else:  # winner == 'away'
+        elif winner == 'away':
             self.away_wins += 1
 
         # Check for KO conditions
@@ -143,12 +156,6 @@ class Bout:
             if self.verbose == 1:
                 print(f"{winner.upper()} TKO")
             self.has_ko, self.has_tko = True, True
-
-    def use_support(self, is_home=True):
-        if is_home:
-            self.home_support = 0
-        else:
-            self.away_support = 0
 
     def play_round(self):
         home_card = self.home_deck.draw_card()

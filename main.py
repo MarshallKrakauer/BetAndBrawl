@@ -48,7 +48,7 @@ def process_fight_result(bout, counters, fight_number, verbose=False):
     return fight_number + 1
 
 
-def simulate_fights(num_fights=10_000, home_support=1, away_support=1):
+def simulate_fights(num_fights=10_000, home_support=0, away_support=0):
     num_fights = num_fights
     fight_counter = 1
     counters = {

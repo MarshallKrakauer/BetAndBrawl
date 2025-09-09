@@ -81,6 +81,7 @@ def simulate_fights(num_fights=10_000, home_support=0, away_support=0):
             print(key.replace('_', ' '), value)
     print('\n')
 
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     random.seed(15)
@@ -96,3 +97,6 @@ if __name__ == '__main__':
 
     print("1 HOME SUPPORT 1 AWAY SUPPORT")
     simulate_fights(10_000, home_support=1, away_support=1)
+
+    print("2 HOME SUPPORT 2 AWAY SUPPORT")
+    simulate_fights(10_000, home_support=2, away_support=2)

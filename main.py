@@ -3,7 +3,7 @@ import random
 from game_classes import Card, Deck, Bout
 
 
-def process_fight_result(bout, counters, fight_number):
+def process_fight_result(bout, counters, fight_number, verbose=False):
     """
     Process the result of a fight and update all relevant counters.
 
@@ -41,13 +41,14 @@ def process_fight_result(bout, counters, fight_number):
     counters['punch_ko_count'] += result_of_fight['punch_ko_win']
     counters['decision_count'] += result_of_fight['decision_win']
 
-    print(result_of_fight)
-    print("End of Fight #", str(fight_number))
+    if verbose:
+        print(result_of_fight)
+        print("End of Fight #", str(fight_number))
 
     return fight_number + 1
 
 
-def simulate_fights(num_fights=10_000):
+def simulate_fights(num_fights=10_000, home_support=1, away_support=1):
     num_fights = num_fights
     fight_counter = 1
     counters = {
@@ -67,8 +68,8 @@ def simulate_fights(num_fights=10_000):
         scientist_deck = Deck()
         engineer_deck = Deck()
         my_bout = Bout(home_deck=scientist_deck, away_deck=engineer_deck
-                       , home_support_count=0
-                       , away_support_count=0)
+                       , home_support_count=home_support
+                       , away_support_count=away_support)
         my_bout.fight_bout()
         result_of_fight = my_bout.get_results()
         process_fight_result(my_bout, counters, fight_counter)
@@ -78,10 +79,20 @@ def simulate_fights(num_fights=10_000):
         if key in ['draw_count', 'home_ko_count', 'home_decision_count',
                    'away_ko_count', 'away_decision_count']:
             print(key.replace('_', ' '), value)
-
+    print('\n')
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     random.seed(15)
 
-    simulate_fights(3)
+    print("NO SUPPORT")
+    simulate_fights(10_000)
+
+    print("1 HOME SUPPORT")
+    simulate_fights(10_000, home_support=1)
+
+    print("2 HOME SUPPORT")
+    simulate_fights(10_000, home_support=2)
+
+    print("1 HOME SUPPORT 1 AWAY SUPPORT")
+    simulate_fights(10_000, home_support=1, away_support=1)

@@ -66,7 +66,8 @@ class Deck:
 
 class Bout:
 
-    def __init__(self, home_deck, away_deck, bout_length=6):
+    def __init__(self, home_deck, away_deck, bout_length=6
+                 , home_support_count=0, away_support_count=0):
         self.round_results = ['_'] * bout_length
         self.home_deck = home_deck
         self.away_deck = away_deck
@@ -84,6 +85,39 @@ class Bout:
         self.bout_winner = 'Draw'
         self.verbose = False
         self.tko_threshold = 3
+        self.home_support = home_support_count
+        self.away_support = away_support_count
+
+    def handle_victory(self, winner, card_difference):
+        """Handle common victory logic for both home and away wins."""
+        # Update streak
+        if self.previous_round_winner == winner:
+            self.round_streak += 1
+        else:
+            self.round_streak = 1
+
+        self.previous_round_winner = winner
+
+        # Update win counter
+        if winner == 'home':
+            self.home_wins += 1
+        else:  # winner == 'away'
+            self.away_wins += 1
+
+        # Check for KO conditions
+        if card_difference >= self.ko_threshold:
+            print(f"{winner.upper()} PUNCH KO")
+            self.has_ko, self.has_punch_ko = True, True
+
+        if self.round_streak == self.tko_threshold:
+            print(f"{winner.upper()} TKO")
+            self.has_ko, self.has_tko = True, True
+
+    def use_support(self, is_home=True):
+        if is_home:
+            self.home_support = 0
+        else:
+            self.away_support = 0
 
     def play_round(self):
         home_card = self.home_deck.draw_card()
@@ -96,50 +130,23 @@ class Bout:
         card_difference = 0
         round_result = ''
 
-        # HOME VICTORY
+        # Main logic becomes:
         if home_card.value > away_card.value:
             card_difference = home_value - away_value
-            #print('HOME WINS')
-            if self.previous_round_winner == 'home':
-                self.round_streak += 1
-            else:
-                self.round_streak = 1
-            self.previous_round_winner = 'home'
+            self.handle_victory('home', card_difference)
             round_result = 'H'
-            self.home_wins += 1
-            if card_difference >= self.ko_threshold:
-                print("HOME PUNCH KO")
-                self.has_ko, self.has_punch_ko = True, True
-            if self.round_streak == self.tko_threshold:
-                print("HOME TKO")
-                self.has_ko, self.has_tko = True, True
-
-        ## Away Victory
         elif away_card.value > home_card.value:
             card_difference = away_value - home_value
-            #print('AWAY WINS')
-            if self.previous_round_winner == 'away':
-                self.round_streak += 1
-            else:
-                self.round_streak = 1
-            self.previous_round_winner = 'away'
+            self.handle_victory('away', card_difference)
             round_result = 'A'
-            self.away_wins += 1
-            if card_difference >= self.ko_threshold:
-                print("AWAY PUNCH KO")
-                self.has_ko, self.has_punch_ko = True, True
-            if self.round_streak == self.tko_threshold:
-                print("AWAY TKO")
-                self.has_ko, self.has_tko = True, True
         else:
-            #print('DRAW')
             round_result = 'D'
             self.previous_round_winner = 'draw'
             self.round_streak = 0
 
         self.round_results[self.round_number] = round_result
         self.round_number += 1
-        #print("### ROUND STREAK ### ", self.round_streak)
+        # print("### ROUND STREAK ### ", self.round_streak)
 
     def fight_bout(self):
         while not self.has_ko and (self.round_number < len(self.round_results)):

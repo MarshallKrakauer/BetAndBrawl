@@ -2,20 +2,6 @@
 import random
 from game_classes import Card, Deck, Bout
 
-counters = {
-    'home_win_count': 0,
-    'away_win_count': 0,
-    'draw_count': 0,
-    'home_ko_count': 0,
-    'home_decision_count': 0,
-    'away_ko_count': 0,
-    'away_decision_count': 0,
-    'ko_count': 0,
-    'tko_count': 0,
-    'punch_ko_count': 0,
-    'decision_count': 0
-}
-
 
 def process_fight_result(bout, counters, fight_number):
     """
@@ -61,16 +47,22 @@ def process_fight_result(bout, counters, fight_number):
     return fight_number + 1
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    # 10 is Away TKO
-    # 11, 12, 13 are draw
-    home_win_count, away_win_count, draw_count = 0, 0, 0
-    home_ko_count, home_decision_count, away_ko_count, away_decision_count = 0, 0, 0, 0
-    ko_count, tko_count, punch_ko_count, decision_count = 0, 0, 0, 0
-    random.seed(15)
-    num_fights = 10_000
+def simulate_fights(num_fights=10_000):
+    num_fights = num_fights
     fight_counter = 1
+    counters = {
+        'home_win_count': 0,
+        'away_win_count': 0,
+        'draw_count': 0,
+        'home_ko_count': 0,
+        'home_decision_count': 0,
+        'away_ko_count': 0,
+        'away_decision_count': 0,
+        'ko_count': 0,
+        'tko_count': 0,
+        'punch_ko_count': 0,
+        'decision_count': 0
+    }
     while fight_counter <= num_fights:
         scientist_deck = Deck()
         engineer_deck = Deck()
@@ -82,25 +74,14 @@ if __name__ == '__main__':
         process_fight_result(my_bout, counters, fight_counter)
         fight_counter += 1
 
-    if True:
-        print("#### WIN METHODS ####")
-        print('Decision Count', decision_count)
-        print('KO count', ko_count)
-        print('TKO Count', tko_count)
-        print('Punch KO Count', punch_ko_count)
+    for key, value in counters.items():
+        if key in ['draw_count', 'home_ko_count', 'home_decision_count',
+                   'away_ko_count', 'away_decision_count']:
+            print(key.replace('_', ' '), value)
 
-        print("### BET TYPES ###")
-        print('Home KO:', home_ko_count)
-        print('Home Decision:', home_decision_count)
-        print('Draw:', draw_count)
-        print('Away Decision:', away_decision_count)
-        print('Away KO:', away_ko_count)
 
-    """
-    Home KO: 227
-    Home Decision: 152
-    Draw: 250
-    Away Decision: 132
-    Away KO: 239
-    """
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    random.seed(15)
+
+    simulate_fights(3)

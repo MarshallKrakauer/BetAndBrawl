@@ -20,7 +20,7 @@ if __name__ == '__main__':
     home_ko_count, home_decision_count, away_ko_count, away_decision_count = 0, 0, 0, 0
     ko_count, tko_count, punch_ko_count, decision_count = 0, 0, 0, 0
     random.seed(15)
-    num_fights = 1000
+    num_fights = 10_000
     fight_counter = 1
     while fight_counter <= num_fights:
         scientist_deck = Deck()

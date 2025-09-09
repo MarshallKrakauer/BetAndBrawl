@@ -2,6 +2,21 @@
 import random
 from game_classes import Card, Deck, Bout
 
+counters = {
+    'home_win_count': 0,
+    'away_win_count': 0,
+    'draw_count': 0,
+    'home_ko_count': 0,
+    'home_decision_count': 0,
+    'away_ko_count': 0,
+    'away_decision_count': 0,
+    'ko_count': 0,
+    'tko_count': 0,
+    'punch_ko_count': 0,
+    'decision_count': 0
+}
+
+
 def process_fight_result(bout, counters, fight_number):
     """
     Process the result of a fight and update all relevant counters.
@@ -46,27 +61,11 @@ def process_fight_result(bout, counters, fight_number):
     return fight_number + 1
 
 
-# Usage example:
-# Initialize counters dictionary
-counters = {
-    'home_win_count': 0,
-    'away_win_count': 0,
-    'draw_count': 0,
-    'home_ko_count': 0,
-    'home_decision_count': 0,
-    'away_ko_count': 0,
-    'away_decision_count': 0,
-    'ko_count': 0,
-    'tko_count': 0,
-    'punch_ko_count': 0,
-    'decision_count': 0
-}
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # 10 is Away TKO
     # 11, 12, 13 are draw
-    home_win_count, away_win_count, draw_count, ko_count = 0, 0, 0, 0
+    home_win_count, away_win_count, draw_count = 0, 0, 0
     home_ko_count, home_decision_count, away_ko_count, away_decision_count = 0, 0, 0, 0
     ko_count, tko_count, punch_ko_count, decision_count = 0, 0, 0, 0
     random.seed(15)
@@ -80,27 +79,7 @@ if __name__ == '__main__':
                        , away_support_count=0)
         my_bout.fight_bout()
         result_of_fight = my_bout.get_results()
-        if result_of_fight['winner'] == 'home':
-            home_win_count += 1
-        elif result_of_fight['winner'] == 'away':
-            away_win_count += 1
-        else:
-            draw_count += 1
-
-        if result_of_fight['winner'] == 'home' and result_of_fight['ko_win'] == 1:
-            home_ko_count += 1
-        elif result_of_fight['winner'] == 'home' and result_of_fight['ko_win'] == 0:
-            home_decision_count += 1
-        elif result_of_fight['winner'] == 'away' and result_of_fight['ko_win'] == 1:
-            away_ko_count += 1
-        elif result_of_fight['winner'] == 'away' and result_of_fight['ko_win'] == 0:
-            away_decision_count += 1
-        ko_count += result_of_fight['ko_win']
-        tko_count += result_of_fight['tko_win']
-        punch_ko_count += result_of_fight['punch_ko_win']
-        decision_count += result_of_fight['decision_win']
-        print(result_of_fight)
-        print("End of Fight #", str(fight_counter))
+        process_fight_result(my_bout, counters, fight_counter)
         fight_counter += 1
 
     if True:

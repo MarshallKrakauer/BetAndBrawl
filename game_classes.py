@@ -10,12 +10,12 @@ class Card:
         self.charge = charge
         self.is_dodge = is_dodge
         if self.is_dodge:
-            self.dodge_string = '\n' + 'Dodge'
+            self.dodge_string = ';' + 'Dodge'
         else:
             self.dodge_string = ''
 
     def __str__(self):
-        return 'Value: ' + str(self.value) + '\n' + 'Charge:' + str(self.charge) + self.dodge_string
+        return 'Value: ' + str(self.value) + ';' + 'Charge:' + str(self.charge) + self.dodge_string
 
 
 class GameDeck:
@@ -41,8 +41,21 @@ class GameDeck:
         self.card_list.extend(single_charge_cards)
         self.card_list.extend(dodge_cards)
 
+        self.shuffle_deck()
+
     def shuffle_deck(self):
         random.shuffle(self.card_list)
+
+    def draw_card(self):
+        if len(self.card_list) > 0:
+            current_card = self.card_list.pop()
+            return current_card
+        return None
+
+    def print_deck(self):
+        print("TOTAL DECK CARDS:", len(self.card_list))
+        for val in self.card_list:
+            print(val)
 
 
 class FighterDeck:
@@ -75,6 +88,16 @@ class FighterDeck:
             current_card = self.card_list.pop()
             self.discard.append(current_card)
             return current_card
+
+    def add_card(self, new_card):
+        if len(self.card_list) < 7:
+            self.card_list.append(new_card)
+            self.shuffle_deck()
+        else:
+            self.shuffle_deck()
+            self.card_list.pop()
+            self.card_list.append(new_card)
+            self.shuffle_deck()
 
 
 class Bout:

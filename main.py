@@ -1,6 +1,6 @@
 # This is a sample Python script.
 import random
-from game_classes import Card, FighterDeck, Bout
+from game_classes import Card, FighterDeck, Bout, GameDeck
 
 
 def process_fight_result(bout, counters, fight_number, verbose=False):
@@ -83,9 +83,12 @@ def simulate_fights(num_fights=10_000):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    random.seed(15)
+    random.seed(14)
 
-    simulate_fights(10000)
+    marshall_deck = FighterDeck()
+    game_box_deck = GameDeck()
+    game_box_deck.print_deck()
+
 
     # print("1 red_corner SUPPORT")
     # simulate_fights(10_000)

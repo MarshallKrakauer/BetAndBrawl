@@ -61,7 +61,7 @@ class FighterDeck:
 
 class Bout:
 
-    def __init__(self, red_corner_deck, blue_corner_deck,  verbose=1, punch_ko_threshold=5,
+    def __init__(self, red_corner_deck, blue_corner_deck,  verbose=0, punch_ko_threshold=5,
                  red_corner_starting_meter = 0, blue_corner_starting_meter = 0):
 
         # Set up Rules of Fight
@@ -117,7 +117,6 @@ class Bout:
 
     def handle_victory(self, winner, card_difference):
         """Handle common victory logic for both red_corner and blue_corner wins."""
-        print("is it making to the handle victory function")
         # Function updates these values, if possible:
         # self.bout_ended_in_ko, self.bout_ended_in_punch_ko, self.bout_ended_in_tko
         round_resulted_in_ko = self.check_for_ko(winner, card_difference)
@@ -150,7 +149,6 @@ class Bout:
                 print(f"{winner.upper()} TKO KO")
 
     def play_round(self):
-        print(self.round_number)
         # Draw Card from each deck
         red_corner_card = self.red_corner_deck.draw_card()
         blue_corner_card = self.blue_corner_deck.draw_card()

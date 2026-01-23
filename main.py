@@ -68,7 +68,7 @@ def simulate_fights(num_fights=10_000):
         scientist_deck = FighterDeck()
         engineer_deck = FighterDeck()
         #scientist_deck.print_deck()
-        my_bout = Bout(blue_corner_deck=scientist_deck, red_corner_deck=engineer_deck)
+        my_bout = Bout(blue_corner_deck=scientist_deck, red_corner_deck=engineer_deck,verbose = 0)
         my_bout.fight_bout()
         result_of_fight = my_bout.get_results()
         process_fight_result(my_bout, counters, fight_counter,True)
@@ -85,7 +85,7 @@ def simulate_fights(num_fights=10_000):
 if __name__ == '__main__':
     random.seed(15)
 
-    simulate_fights(1000)
+    simulate_fights(10000)
 
     # print("1 red_corner SUPPORT")
     # simulate_fights(10_000)

@@ -2,7 +2,8 @@ import random
 
 METER_MAX = 2
 BOUT_LENGTH = 6
-TKO_THRESHOLD = 77777777777
+TKO_THRESHOLD = 4
+PUNCH_KO_THRESHOLD = 5
 
 
 class Card:
@@ -30,8 +31,10 @@ class GameDeck:
             Card(5), Card(5), Card(5),
             Card(6), Card(6), Card(6),
         ]
-        double_charge_cards = [Card(0, 2), Card(1, 2), Card(6, -2),
-                               Card(7, -2)]
+        double_charge_values = 2
+        double_charge_cards = [Card(0, double_charge_values), Card(1, double_charge_values),
+                               Card(6, double_charge_values * -1),
+                               Card(7, double_charge_values * -1)]
         single_charge_cards = [Card(0, 1), Card(1, 1), Card(2, 1), Card(3, 1),
                                Card(4, -1), Card(5, -1), Card(6, -1), Card(7, -1)]
         dodge_cards = [Card(is_dodge=True) for _ in range(6)]
@@ -107,7 +110,7 @@ class FighterDeck:
 
 class Bout:
 
-    def __init__(self, red_corner_deck, blue_corner_deck, verbose=0, punch_ko_threshold=5,
+    def __init__(self, red_corner_deck, blue_corner_deck, verbose=0, punch_ko_threshold=PUNCH_KO_THRESHOLD,
                  red_corner_starting_meter=0, blue_corner_starting_meter=0):
 
         # Set up Rules of Fight
@@ -146,7 +149,7 @@ class Bout:
         if self.previous_round_winner == 'draw':
             return False
         # Hitting a streak of three rounds is a KO
-        if self.previous_round_winner == winner and self.round_streak == self.tko_threshold-1:
+        if self.previous_round_winner == winner and self.round_streak == self.tko_threshold - 1:
             self.bout_ended_in_ko = True
             self.bout_ended_in_tko = True
             return True
@@ -201,6 +204,8 @@ class Bout:
         # Does the round involve a dodge. This creates an automated draw
         round_has_dodge = red_corner_card.is_dodge or blue_corner_card.is_dodge
 
+        if round_has_dodge:
+            self.red_corner_meter, self.blue_corner_meter = 0, 0
         # Get values on cards. This plus meter will decide winner of round
         red_corner_card_value = red_corner_card.value
         blue_corner_card_value = blue_corner_card.value

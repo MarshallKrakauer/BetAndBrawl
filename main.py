@@ -89,7 +89,6 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         if key in ['draw_count', 'red_corner_ko_count', 'red_corner_decision_count',
                    'blue_corner_ko_count', 'blue_corner_decision_count']:
             print(key.replace('_', ' '), value)
-    print('\n')
 
 
 # Press the green button in the gutter to run the script.
@@ -107,14 +106,14 @@ if __name__ == '__main__':
     #     marshall_deck.add_card(my_card)
     #     marshall_deck.print_deck()
 
-    # No Meter
+    print("###No Meter###")
     simulate_fights(num_fights=10_000, red_corner_starting_meter=0, blue_corner_starting_meter=0)
 
-    # 1 Red Meter
+    print("###1 Red Meter###")
     simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=0)
 
-    # 2 Red Meter
+    print("###2 Red Meter###")
     simulate_fights(num_fights=10_000, red_corner_starting_meter=2, blue_corner_starting_meter=0)
 
-    # 1 Meter Each
+    print("###1 Meter Each###")
     simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=1)

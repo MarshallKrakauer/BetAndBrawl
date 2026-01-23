@@ -1,6 +1,6 @@
 # This is a sample Python script.
 import random
-from game_classes import Card, Deck, Bout
+from game_classes import Card, FighterDeck, Bout
 
 
 def process_fight_result(bout, counters, fight_number, verbose=False):
@@ -65,9 +65,9 @@ def simulate_fights(num_fights=10_000, home_support=0, away_support=0):
         'decision_count': 0
     }
     while fight_counter <= num_fights:
-        scientist_deck = Deck()
-        engineer_deck = Deck()
-        my_bout = Bout(home_deck=scientist_deck, away_deck=engineer_deck
+        scientist_deck = FighterDeck()
+        engineer_deck = FighterDeck()
+        my_bout = Bout(blue_corner_deck=scientist_deck, away_deck=engineer_deck
                        , home_support_count=home_support
                        , away_support_count=away_support)
         my_bout.fight_bout()

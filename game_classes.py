@@ -1,22 +1,29 @@
 import random
 
+METER_MAX = 2
+BOUT_LENGTH = 6
+
 
 class Card:
-    def __init__(self, value, effect=""):
+    def __init__(self, value, charge=0, is_dodge=False):
         self.value = value
-        self.effect = effect
+        self.charge = charge
+        self.is_dodge = is_dodge
 
     def __str__(self):
-        if self.effect != "":
-            return 'Value: ' + str(self.value) + '\n' + 'Effect:' + self.effect
-        else:
-            return 'Value: ' + str(self.value)
-
-    def do_thing(self):
-        print(str(self.value) + '__' + str(self.effect))
+        'Value: ' + str(self.value) + '\n' + 'Charge:' + self.effect
 
 
-class Deck:
+class GameDeck:
+    def __init__(self):
+        self.card_list = []
+        basic_cards = [Card(1), Card(1), Card(1), Card(1),
+                       Card(2)]
+
+        self.card_list.extend()
+
+
+class FighterDeck:
     def __init__(self):
         self.card_list = [Card(1), Card(2), Card(3), Card(4), Card(5), Card(6)]
         self.discard = []
@@ -43,33 +50,15 @@ class Deck:
             self.discard.append(current_card)
             return current_card
 
-    def reveal_card(self, num_reveals=1):
-        if num_reveals > 2:
-            num_reveals = 2
-        value = 0
-        if len(self.card_list) == 0:
-            value += 0
-        else:
-            value += self.card_list[0].value
-
-        if num_reveals == 2:
-            if len(self.card_list) <= 1:
-                value += 0
-            else:
-                value += self.card_list[1].value
-        print("VALUE REVEALED:", value)
-        return value
-
 
 class Bout:
 
-    def __init__(self, home_deck, away_deck, bout_length=6
-                 , home_support_count=0, away_support_count=0, verbose=0):
-        self.round_results = ['_'] * bout_length
-        self.home_deck = home_deck
-        self.away_deck = away_deck
-        self.home_deck.shuffle_deck()
-        self.away_deck.shuffle_deck()
+    def __init__(self, red_corner_deck, blue_corner_deck,  verbose=0):
+        self.round_results = ['_'] * BOUT_LENGTH
+        self.red_corner_deck = blue_corner_deck
+        self.blue_corner_deck = red_corner_deck
+        self.red_corner_deck.shuffle_deck()
+        self.blue_corner_deck.shuffle_deck()
         self.round_number = 0
         self.previous_round_winner = 'Start of bout'
         self.round_streak = 0
@@ -77,13 +66,11 @@ class Bout:
         self.has_ko = False
         self.has_tko = False
         self.has_punch_ko = False
-        self.home_wins = 0
-        self.away_wins = 0
+        self.red_corner_wins = 0
+        self.blue_corner_wins = 0
         self.bout_winner = 'Draw'
         self.verbose = verbose
         self.tko_threshold = 3
-        self.home_support = home_support_count
-        self.away_support = away_support_count
 
     def check_for_ko(self, winner, card_difference):
         if self.previous_round_winner == winner and self.round_streak == 2:
@@ -92,41 +79,18 @@ class Bout:
             return True
         return False
 
-    def use_support(self, home_needs_support=True):
-        if home_needs_support:
-            self.home_support = 0
-        else:
-            self.away_support = 0
-
     def handle_victory(self, winner, card_difference):
-        """Handle common victory logic for both home and away wins."""
+        """Handle common victory logic for both red_corner and blue_corner wins."""
 
         if winner == 'draw':
-            is_ko_pre_support = False
+            is_ko = False
         else:
-            is_ko_pre_support = self.check_for_ko(winner, card_difference)
+            is_ko = self.check_for_ko(winner, card_difference)
 
-        if is_ko_pre_support and winner == 'away':
-            support_value = self.home_support
-            self.use_support(home_needs_support=True)
-            card_difference -= support_value
-            if card_difference == 0:
-                winner = 'draw'
-                card_difference = 0
-            elif card_difference < 0:
-                winner = 'home'
-                card_difference = card_difference * -1
-
-        if is_ko_pre_support and winner == 'home':
-            support_value = self.away_support
-            self.use_support(home_needs_support=False)
-            card_difference -= support_value
-            if card_difference == 0:
-                winner = 'draw'
-                card_difference = 0
-            elif card_difference < 0:
-                winner = 'away'
-                card_difference = card_difference * -1
+        if is_ko and winner == 'blue_corner':
+            winner = 'blue_corner'
+        if is_ko and winner == 'red_corner':
+            winner = 'red_corner'
 
         # Update streak
         if winner != 'draw':
@@ -141,10 +105,10 @@ class Bout:
         self.previous_round_winner = winner
 
         # Update win counter
-        if winner == 'home':
-            self.home_wins += 1
-        elif winner == 'away':
-            self.away_wins += 1
+        if winner == 'red_corner':
+            self.red_corner_wins += 1
+        elif winner == 'blue_corner':
+            self.blue_corner_wins += 1
 
         # Check for KO conditions
         if card_difference >= self.punch_ko_threshold:
@@ -158,24 +122,24 @@ class Bout:
             self.has_ko, self.has_tko = True, True
 
     def play_round(self):
-        home_card = self.home_deck.draw_card()
-        away_card = self.away_deck.draw_card()
-        home_value = home_card.value
-        away_value = away_card.value
+        red_corner_card = self.red_corner_deck.draw_card()
+        blue_corner_card = self.blue_corner_deck.draw_card()
+        red_corner_value = red_corner_card.value
+        blue_corner_value = blue_corner_card.value
         if self.verbose == 2:
-            print("HOME:", home_card)
-            print("AWAY:", away_card)
+            print("red_corner:", red_corner_card)
+            print("blue_corner:", blue_corner_card)
         card_difference = 0
         round_result = ''
 
         # Main logic becomes:
-        if home_card.value > away_card.value:
-            card_difference = home_value - away_value
-            self.handle_victory('home', card_difference)
+        if red_corner_card.value > blue_corner_card.value:
+            card_difference = red_corner_value - blue_corner_value
+            self.handle_victory('red_corner', card_difference)
             round_result = 'H'
-        elif away_card.value > home_card.value:
-            card_difference = away_value - home_value
-            self.handle_victory('away', card_difference)
+        elif blue_corner_card.value > red_corner_card.value:
+            card_difference = blue_corner_value - red_corner_value
+            self.handle_victory('blue_corner', card_difference)
             round_result = 'A'
         else:
             round_result = 'D'
@@ -201,10 +165,10 @@ class Bout:
 
     def show_rounds(self):
         if not self.has_ko:
-            if self.home_wins > self.away_wins:
-                self.bout_winner = 'home'
-            elif self.home_wins < self.away_wins:
-                self.bout_winner = 'away'
+            if self.red_corner_wins > self.blue_corner_wins:
+                self.bout_winner = 'red_corner'
+            elif self.red_corner_wins < self.blue_corner_wins:
+                self.bout_winner = 'blue_corner'
             else:
                 self.bout_winner = 'draw'
         if self.has_ko:

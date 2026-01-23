@@ -2,22 +2,27 @@ import random
 
 METER_MAX = 2
 BOUT_LENGTH = 6
-TKO_THRESHOLD = 4
+TKO_THRESHOLD = 100
 PUNCH_KO_THRESHOLD = 5
 
 
 class Card:
-    def __init__(self, value=0, charge=0, is_dodge=False):
+    def __init__(self, value=0, charge=0, is_dodge=False, is_reset=False):
         self.value = value
         self.charge = charge
         self.is_dodge = is_dodge
+        self.is_reset = is_reset
         if self.is_dodge:
             self.dodge_string = ';' + 'Dodge'
         else:
             self.dodge_string = ''
+        if self.is_reset:
+            self.charge_string = 'Reset Charge'
+        else:
+            self.charge_string = 'Charge:' + str(self.charge)
 
     def __str__(self):
-        return 'Value: ' + str(self.value) + ';' + 'Charge:' + str(self.charge) + self.dodge_string
+        return 'Value: ' + str(self.value) + ';' + self.charge_string + self.dodge_string
 
 
 class GameDeck:

@@ -3,7 +3,7 @@ import random
 from game_classes import Card, FighterDeck, Bout, GameDeck
 
 
-def process_fight_result(bout, counters, fight_number, verbose=False):
+def process_fight_result(bout, counters, fight_number, verbose=0):
     """
     Process the result of a fight and update all relevant counters.
 
@@ -41,7 +41,7 @@ def process_fight_result(bout, counters, fight_number, verbose=False):
     counters['punch_ko_count'] += result_of_fight['punch_ko_win']
     counters['decision_count'] += result_of_fight['decision_win']
 
-    if verbose:
+    if verbose == 1:
         print(result_of_fight)
         print("End of Fight #", str(fight_number))
 
@@ -82,7 +82,7 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
 
         my_bout.fight_bout()
         result_of_fight = my_bout.get_results()
-        process_fight_result(my_bout, counters, fight_counter, True)
+        process_fight_result(my_bout, counters, fight_counter, 0)
         fight_counter += 1
 
     for key, value in counters.items():
@@ -107,4 +107,14 @@ if __name__ == '__main__':
     #     marshall_deck.add_card(my_card)
     #     marshall_deck.print_deck()
 
-    simulate_fights(num_fights=10_000, red_corner_starting_meter=1)
+    # No Meter
+    simulate_fights(num_fights=10_000, red_corner_starting_meter=0, blue_corner_starting_meter=0)
+
+    # 1 Red Meter
+    simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=0)
+
+    # 2 Red Meter
+    simulate_fights(num_fights=10_000, red_corner_starting_meter=2, blue_corner_starting_meter=0)
+
+    # 1 Meter Each
+    simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=1)

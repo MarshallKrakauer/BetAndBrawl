@@ -53,24 +53,40 @@ class FighterDeck:
 
 class Bout:
 
-    def __init__(self, red_corner_deck, blue_corner_deck,  verbose=0):
+    def __init__(self, red_corner_deck, blue_corner_deck,  verbose=0, punch_ko_threshold=5,
+                 red_corner_starting_meter = 0, blue_corner_starting_meter = 0):
+
+        # Set up Rules of Fight
         self.round_results = ['_'] * BOUT_LENGTH
+        self.punch_ko_threshold = punch_ko_threshold
+        self.tko_threshold = 3
+
+        # Set up Starting meter
+        # For added clarity, "meter" refers to how much is added/subtracted
+        # in current round. "charge" is how much the meter changes next round
+        self.red_corner_starting_meter = red_corner_starting_meter
+        self.blue_corner_starting_meter = blue_corner_starting_meter
+
+        # Create decks for each fighter
         self.red_corner_deck = blue_corner_deck
         self.blue_corner_deck = red_corner_deck
         self.red_corner_deck.shuffle_deck()
         self.blue_corner_deck.shuffle_deck()
+
+        # Initialize Fight variables to start of fight values
         self.round_number = 0
         self.previous_round_winner = 'Start of bout'
         self.round_streak = 0
-        self.punch_ko_threshold = 5
-        self.has_ko = False
-        self.has_tko = False
-        self.has_punch_ko = False
+        self.bout_ended_in_ko = False
+        self.bout_ended_in_tko = False
+        self.bout_ended_in_punch_ko = False
         self.red_corner_wins = 0
         self.blue_corner_wins = 0
         self.bout_winner = 'Draw'
+
+        # Set verbosity: how much info will be printed out about the fight
         self.verbose = verbose
-        self.tko_threshold = 3
+
 
     def check_for_ko(self, winner, card_difference):
         if self.previous_round_winner == winner and self.round_streak == 2:
@@ -94,11 +110,13 @@ class Bout:
 
         # Update streak
         if winner != 'draw':
+            # Fighter won multiple rounds in row ,leading to possible TKO setup
             if self.previous_round_winner == winner:
                 self.round_streak += 1
             else:
                 self.round_streak = 1
         else:
+            # If the round was a draw, it ends the streak, no TKO is near
             self.previous_round_winner = 'draw'
             self.round_streak = 0
 
@@ -114,33 +132,39 @@ class Bout:
         if card_difference >= self.punch_ko_threshold:
             if self.verbose == 1:
                 print(f"{winner.upper()} PUNCH KO")
-            self.has_ko, self.has_punch_ko = True, True
+            self.bout_ended_in_ko, self.bout_ended_in_punch_ko = True, True
 
         if self.round_streak == self.tko_threshold:
             if self.verbose == 1:
                 print(f"{winner.upper()} TKO")
-            self.has_ko, self.has_tko = True, True
+            self.bout_ended_in_ko, self.bout_ended_in_tko = True, True
 
     def play_round(self):
+
+        # Draw Card from each deck
         red_corner_card = self.red_corner_deck.draw_card()
         blue_corner_card = self.blue_corner_deck.draw_card()
+
+        # Get values on cards. This plus meter will decide winner of round
         red_corner_value = red_corner_card.value
         blue_corner_value = blue_corner_card.value
+
+        red_corner_charge = red_corner_card.charge
+        blue_corner_charge = blue_corner_card.charge
+
         if self.verbose == 2:
             print("red_corner:", red_corner_card)
             print("blue_corner:", blue_corner_card)
-        card_difference = 0
-        round_result = ''
 
         # Main logic becomes:
         if red_corner_card.value > blue_corner_card.value:
             card_difference = red_corner_value - blue_corner_value
             self.handle_victory('red_corner', card_difference)
-            round_result = 'H'
+            round_result = 'R'
         elif blue_corner_card.value > red_corner_card.value:
             card_difference = blue_corner_value - red_corner_value
             self.handle_victory('blue_corner', card_difference)
-            round_result = 'A'
+            round_result = 'B'
         else:
             round_result = 'D'
             self.previous_round_winner = 'draw'
@@ -150,12 +174,12 @@ class Bout:
         self.round_number += 1
 
     def fight_bout(self):
-        while not self.has_ko and (self.round_number < len(self.round_results)):
+        while not self.bout_ended_in_ko and (self.round_number < len(self.round_results)):
             if self.verbose == 1:
                 print("ROUND:", self.round_number + 1)
             self.play_round()
 
-        if self.has_ko:
+        if self.bout_ended_in_ko:
             self.bout_winner = self.previous_round_winner
             if self.verbose == 1:
                 print("KO!!!!")
@@ -164,15 +188,15 @@ class Bout:
         self.show_rounds()
 
     def show_rounds(self):
-        if not self.has_ko:
+        if not self.bout_ended_in_ko:
             if self.red_corner_wins > self.blue_corner_wins:
                 self.bout_winner = 'red_corner'
             elif self.red_corner_wins < self.blue_corner_wins:
                 self.bout_winner = 'blue_corner'
             else:
                 self.bout_winner = 'draw'
-        if self.has_ko:
-            if self.has_tko:
+        if self.bout_ended_in_ko:
+            if self.bout_ended_in_tko:
                 win_method = 'KO (TKO)'
             else:
                 win_method = 'KO (Punch)'
@@ -185,14 +209,14 @@ class Bout:
             print("THE FINAL RESULT", self.bout_winner, 'by', win_method)
 
     def get_results(self):
-        if self.has_ko:
+        if self.bout_ended_in_ko:
             decision_win = 0
         else:
             decision_win = 1
         result_dict = {'winner': self.bout_winner,
-                       'ko_win': int(self.has_ko),
-                       'tko_win': int(self.has_tko),
-                       'punch_ko_win': int(self.has_punch_ko),
+                       'ko_win': int(self.bout_ended_in_ko),
+                       'tko_win': int(self.bout_ended_in_tko),
+                       'punch_ko_win': int(self.bout_ended_in_punch_ko),
                        'decision_win': decision_win,
                        }
         return result_dict

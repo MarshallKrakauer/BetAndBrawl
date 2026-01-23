@@ -1,7 +1,8 @@
 import random
 
 METER_MAX = 2
-BOUT_LENGTH = 6
+BOUT_LENGTH = 5
+TKO_THRESHOLD = 1000
 
 
 class Card:
@@ -111,7 +112,7 @@ class Bout:
         # Set up Rules of Fight
         self.round_results = ['_'] * BOUT_LENGTH
         self.punch_ko_threshold = punch_ko_threshold
-        self.tko_threshold = 3
+        self.tko_threshold = TKO_THRESHOLD
 
         # Set up Starting meter
         # For added clarity, "meter" refers to how much is added/subtracted

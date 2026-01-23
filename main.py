@@ -48,7 +48,8 @@ def process_fight_result(bout, counters, fight_number, verbose=False):
     return fight_number + 1
 
 
-def simulate_fights(num_fights=10_000):
+def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
+                    blue_corner_starting_meter=0, ):
     num_fights = num_fights
     fight_counter = 1
     counters = {
@@ -67,11 +68,13 @@ def simulate_fights(num_fights=10_000):
     while fight_counter <= num_fights:
         scientist_deck = FighterDeck()
         engineer_deck = FighterDeck()
-        #scientist_deck.print_deck()
-        my_bout = Bout(blue_corner_deck=scientist_deck, red_corner_deck=engineer_deck,verbose = 0)
+        # scientist_deck.print_deck()
+        my_bout = Bout(blue_corner_deck=scientist_deck, red_corner_deck=engineer_deck, verbose=0,
+                       blue_corner_starting_meter=blue_corner_starting_meter,
+                       red_corner_starting_meter=red_corner_starting_meter)
         my_bout.fight_bout()
         result_of_fight = my_bout.get_results()
-        process_fight_result(my_bout, counters, fight_counter,True)
+        process_fight_result(my_bout, counters, fight_counter, True)
         fight_counter += 1
 
     for key, value in counters.items():
@@ -87,11 +90,14 @@ if __name__ == '__main__':
 
     marshall_deck = FighterDeck()
     andre_deck = FighterDeck()
+    ian_deck = FighterDeck()
     cards_in_game_box = GameDeck()
-    #cards_in_game_box.print_deck()
+    # cards_in_game_box.print_deck()
 
     for i in range(10):
-        print('######Iteration:', str(i+1), '######')
+        print('######Iteration:', str(i + 1), '######')
         my_card = cards_in_game_box.draw_card()
         marshall_deck.add_card(my_card)
         marshall_deck.print_deck()
+
+    simulate_fights(num_fights=10_000, red_corner_starting_meter=1)

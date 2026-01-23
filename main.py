@@ -66,12 +66,20 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         'decision_count': 0
     }
     while fight_counter <= num_fights:
-        scientist_deck = FighterDeck()
-        engineer_deck = FighterDeck()
-        # scientist_deck.print_deck()
-        my_bout = Bout(blue_corner_deck=scientist_deck, red_corner_deck=engineer_deck, verbose=0,
+        # Set up the two rival fighters
+        marshall_deck = FighterDeck()
+        andre_deck = FighterDeck()
+
+        # Set up the deck to draw from and the fighters
+        cards_in_game_box = GameDeck()
+        my_bout = Bout(blue_corner_deck=marshall_deck, red_corner_deck=andre_deck, verbose=0,
                        blue_corner_starting_meter=blue_corner_starting_meter,
                        red_corner_starting_meter=red_corner_starting_meter)
+
+        for i in range(7):
+            marshall_deck.add_card(cards_in_game_box.draw_card())
+            andre_deck.add_card(cards_in_game_box.draw_card())
+
         my_bout.fight_bout()
         result_of_fight = my_bout.get_results()
         process_fight_result(my_bout, counters, fight_counter, True)
@@ -88,16 +96,15 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
 if __name__ == '__main__':
     random.seed(15)
 
-    marshall_deck = FighterDeck()
-    andre_deck = FighterDeck()
-    ian_deck = FighterDeck()
-    cards_in_game_box = GameDeck()
-    # cards_in_game_box.print_deck()
-
-    for i in range(10):
-        print('######Iteration:', str(i + 1), '######')
-        my_card = cards_in_game_box.draw_card()
-        marshall_deck.add_card(my_card)
-        marshall_deck.print_deck()
+    # marshall_deck = FighterDeck()
+    # andre_deck = FighterDeck()
+    # ian_deck = FighterDeck()
+    # cards_in_game_box = GameDeck()
+    #
+    # for i in range(10):
+    #     print('######Iteration:', str(i + 1), '######')
+    #     my_card = cards_in_game_box.draw_card()
+    #     marshall_deck.add_card(my_card)
+    #     marshall_deck.print_deck()
 
     simulate_fights(num_fights=10_000, red_corner_starting_meter=1)

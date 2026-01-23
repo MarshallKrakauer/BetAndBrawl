@@ -1,8 +1,8 @@
 import random
 
 METER_MAX = 2
-BOUT_LENGTH = 5
-TKO_THRESHOLD = 1000
+BOUT_LENGTH = 6
+TKO_THRESHOLD = 77777777777
 
 
 class Card:
@@ -90,16 +90,17 @@ class FighterDeck:
             self.discard.append(current_card)
             return current_card
 
-    def add_card(self, new_card):
-        print('you added...', new_card)
+    def add_card(self, new_card, verbose=0):
+        if verbose == 1:
+            print('you added...', new_card)
         if len(self.card_list) < 7:
             self.card_list.append(new_card)
             self.shuffle_deck()
         else:
             self.shuffle_deck()
             removed_card = self.card_list.pop()
-            print('you removed...', removed_card)
-
+            if verbose == 1:
+                print('you removed...', removed_card)
             self.card_list.append(new_card)
             self.shuffle_deck()
 
@@ -145,7 +146,7 @@ class Bout:
         if self.previous_round_winner == 'draw':
             return False
         # Hitting a streak of three rounds is a KO
-        if self.previous_round_winner == winner and self.round_streak == 2:
+        if self.previous_round_winner == winner and self.round_streak == self.tko_threshold-1:
             self.bout_ended_in_ko = True
             self.bout_ended_in_tko = True
             return True

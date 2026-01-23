@@ -83,21 +83,15 @@ def simulate_fights(num_fights=10_000):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    random.seed(14)
+    random.seed(15)
 
     marshall_deck = FighterDeck()
-    game_box_deck = GameDeck()
-    game_box_deck.print_deck()
+    andre_deck = FighterDeck()
+    cards_in_game_box = GameDeck()
+    #cards_in_game_box.print_deck()
 
-
-    # print("1 red_corner SUPPORT")
-    # simulate_fights(10_000)
-    #
-    # print("2 red_corner SUPPORT")
-    # simulate_fights(10_000)
-    #
-    # print("1 red_corner SUPPORT 1 blue_corner SUPPORT")
-    # simulate_fights(10_000)
-    #
-    # print("2 red_corner SUPPORT 2 blue_corner SUPPORT")
-    # simulate_fights(10_000)
+    for i in range(10):
+        print('######Iteration:', str(i+1), '######')
+        my_card = cards_in_game_box.draw_card()
+        marshall_deck.add_card(my_card)
+        marshall_deck.print_deck()

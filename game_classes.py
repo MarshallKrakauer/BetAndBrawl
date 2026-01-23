@@ -90,12 +90,15 @@ class FighterDeck:
             return current_card
 
     def add_card(self, new_card):
+        print('you added...', new_card)
         if len(self.card_list) < 7:
             self.card_list.append(new_card)
             self.shuffle_deck()
         else:
             self.shuffle_deck()
-            self.card_list.pop()
+            removed_card = self.card_list.pop()
+            print('you removed...', removed_card)
+
             self.card_list.append(new_card)
             self.shuffle_deck()
 

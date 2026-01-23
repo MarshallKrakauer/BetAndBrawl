@@ -5,7 +5,7 @@ BOUT_LENGTH = 6
 
 
 class Card:
-    def __init__(self, value, charge=0, is_dodge=False):
+    def __init__(self, value=0, charge=0, is_dodge=False):
         self.value = value
         self.charge = charge
         self.is_dodge = is_dodge
@@ -21,10 +21,28 @@ class Card:
 class GameDeck:
     def __init__(self):
         self.card_list = []
-        basic_cards = [Card(1), Card(1), Card(1), Card(1),
-                       Card(2)]
+        basic_cards = [
+            Card(1), Card(1), Card(1),
+            Card(2), Card(2), Card(2),
+            Card(3), Card(3), Card(3),
+            Card(4), Card(4), Card(4),
+            Card(5), Card(5), Card(5),
+            Card(6), Card(6), Card(6),
+        ]
+        double_charge_cards = [Card(0, 2), Card(1, 2), Card(6, -2),
+                               Card(7, -2)]
+        single_charge_cards = [Card(0, 1), Card(1, 1), Card(2, 1), Card(3, 1),
+                               Card(4, -1), Card(5, -1), Card(6, -1), Card(7, -1)]
+        dodge_cards = [Card(is_dodge=True) for _ in range(6)]
 
-        self.card_list.extend()
+        # Assuming self.card_list is already initialized as an empty list: []
+        self.card_list.extend(basic_cards)
+        self.card_list.extend(double_charge_cards)
+        self.card_list.extend(single_charge_cards)
+        self.card_list.extend(dodge_cards)
+
+    def shuffle_deck(self):
+        random.shuffle(self.card_list)
 
 
 class FighterDeck:
@@ -61,8 +79,8 @@ class FighterDeck:
 
 class Bout:
 
-    def __init__(self, red_corner_deck, blue_corner_deck,  verbose=0, punch_ko_threshold=5,
-                 red_corner_starting_meter = 0, blue_corner_starting_meter = 0):
+    def __init__(self, red_corner_deck, blue_corner_deck, verbose=0, punch_ko_threshold=5,
+                 red_corner_starting_meter=0, blue_corner_starting_meter=0):
 
         # Set up Rules of Fight
         self.round_results = ['_'] * BOUT_LENGTH
@@ -94,7 +112,6 @@ class Bout:
 
         # Set verbosity: how much info will be printed out about the fight
         self.verbose = verbose
-
 
     def check_for_ko(self, winner, round_difference):
         # Draws can't possibly result in KO
@@ -193,8 +210,8 @@ class Bout:
         # Min/Max functions prevent value from going over 2 or under -2
         # 2 being the default, may be adjusted as game is tested
 
-        self.blue_corner_meter = max(min(self.blue_corner_meter + blue_corner_charge,METER_MAX),METER_MAX * -1)
-        self.red_corner_meter = max(min(self.red_corner_meter + red_corner_charge,METER_MAX),METER_MAX * -1)
+        self.blue_corner_meter = max(min(self.blue_corner_meter + blue_corner_charge, METER_MAX), METER_MAX * -1)
+        self.red_corner_meter = max(min(self.red_corner_meter + red_corner_charge, METER_MAX), METER_MAX * -1)
 
         self.round_results[self.round_number] = round_result
         self.round_number += 1

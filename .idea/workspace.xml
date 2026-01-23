@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d64520c-9714-4c29-bb06-cbfa1f9b401b" name="Default Changelist" comment="getting the simulations running again">
+    <list default="true" id="1d64520c-9714-4c29-bb06-cbfa1f9b401b" name="Default Changelist" comment="removing some debug junk code">
       <change beforePath="$PROJECT_DIR$/game_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +107,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1756660672599</updated>
-      <workItem from="1769134475953" duration="6823000" />
+      <workItem from="1769134475953" duration="7248000" />
     </task>
     <task id="LOCAL-00001" summary="remove support change home and away to blue corner and red corner">
       <option name="closed" value="true" />
@@ -134,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769141193548</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="removing some debug junk code">
+      <option name="closed" value="true" />
+      <created>1769141402790</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1769141402790</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,9 +162,10 @@
     <MESSAGE value="remove support change home and away to blue corner and red corner" />
     <MESSAGE value="various fixes to game" />
     <MESSAGE value="getting the simulations running again" />
-    <option name="LAST_COMMIT_MESSAGE" value="getting the simulations running again" />
+    <MESSAGE value="removing some debug junk code" />
+    <option name="LAST_COMMIT_MESSAGE" value="removing some debug junk code" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/BetAndBrawl$main.coverage" NAME="main Coverage Results" MODIFIED="1769141326857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BetAndBrawl$main.coverage" NAME="main Coverage Results" MODIFIED="1769141406920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

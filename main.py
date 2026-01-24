@@ -52,7 +52,7 @@ def process_fight_result(bout, counters, fight_number, verbose=0):
 
 
 def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
-                    blue_corner_starting_meter=0, super_charge_value=2,random_seed=15):
+                    blue_corner_starting_meter=0,random_seed=15):
     """
     Simulate fights in order to get odds
 
@@ -60,13 +60,12 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         num_fights: How many fights to simulate. 10K seems to be enough
         red_corner_starting_meter = how much meter (bonus fight value) the red corner starts with
         blue_corner_starting_meter = how meter (bonus fight value) the blue corner starts with
-        super_charge_value: Used to check if odds are different when 1,2,6,7 add or subtract 2 charge
         random_seed: Set starting point for RNG, used ot get predictable outcomes
 
     Returns:
         pandas dataframe with key data from fights
     """
-    random.seed(15)
+    random.seed(random_seed)
     num_fights = num_fights
     fight_counter = 1
     counters = {
@@ -88,7 +87,7 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         andre_deck = FighterDeck()
 
         # Set up the deck to draw from and the fighters
-        cards_in_game_box = GameDeck(max_charge_value_abs_value=super_charge_value)
+        cards_in_game_box = GameDeck()
         my_bout = Bout(blue_corner_deck=marshall_deck, red_corner_deck=andre_deck, verbose=0,
                        blue_corner_starting_meter=blue_corner_starting_meter,
                        red_corner_starting_meter=red_corner_starting_meter)
@@ -122,7 +121,6 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
     df['blue_meter'] = blue_corner_starting_meter
     df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100, 1)
     del df['count']  # Remove count once we get the percentages
-    df['super_charge_Value'] = super_charge_value
     return df
 
 
@@ -130,11 +128,8 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
 if __name__ == '__main__':
     # List of Fights to Try
     fight_li = [simulate_fights(num_fights=10_000, red_corner_starting_meter=0),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=0, super_charge_value=1),
                 simulate_fights(num_fights=10_000, red_corner_starting_meter=1),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=1, super_charge_value=1),
                 simulate_fights(num_fights=10_000, red_corner_starting_meter=2),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=2, super_charge_value=1),
                 ]
 
     result_li = []

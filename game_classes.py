@@ -2,8 +2,8 @@ import random
 
 METER_MAX = 2
 BOUT_LENGTH = 6
-TKO_THRESHOLD = 999999
-PUNCH_KO_THRESHOLD = 5
+TKO_THRESHOLD = 3
+PUNCH_KO_THRESHOLD = 999999999
 
 
 class Card:
@@ -39,33 +39,50 @@ class GameDeck:
             Card(6), Card(6), Card(6),
         ]
 
-        # Initialize cards that have single charge or discharge
-        single_charge_cards = [
-            # Low cards charge
+        # Initialize 6 dodge cards
+        dodge_cards = [Card(is_dodge=True) for _ in range(0)]
+
+        value_1_through_6_list = [
+            # Dupe 1 and 2
             Card(1, 1),
+            #Card(1, 1),
+
             Card(2, 1),
+            Card(2, 1),
+
             Card(3, 1),
-
-            # High Cards drain
             Card(4, -1),
+
+            # Dupe 5 and 6
             Card(5, -1),
-            Card(6, -1)]
+            Card(5, -1),
+            #Card(6, -1),
+            Card(6, -1),
 
+        ]
+
+        value_0_and_7_list = []
         if include_0_and_7:
-            extra_cards = [Card(0, 1), Card(0,1),
-                           Card(7,-1),Card(7, -1)]
+            value_0_and_7_list = [
+                Card(0, 1),
+                Card(0, 1),
+                Card(7, -1),
+                Card(7, -1),
+            ]
         else:
-            extra_cards = [Card(1, 1), Card(1,1),
-                           Card(6,-1),Card(6, -1)]
+            value_0_and_7_list = [
+                Card(1, 1),
+                Card(1, 1),
+                Card(6, -1),
+                Card(6, -1),
+            ]
 
-        # Initialize dodge cards
-        dodge_cards = [Card(is_dodge=True) for _ in range(6)]
 
         # Assuming self.card_list is already initialized as an empty list: []
         self.card_list.extend(basic_cards)
-        self.card_list.extend(single_charge_cards)
+        self.card_list.extend(value_1_through_6_list)
         self.card_list.extend(dodge_cards)
-        self.card_list.extend(extra_cards)
+        self.card_list.extend(value_0_and_7_list)
         self.shuffle_deck()
 
     def shuffle_deck(self):

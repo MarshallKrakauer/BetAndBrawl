@@ -52,7 +52,7 @@ def process_fight_result(bout, counters, fight_number, verbose=0):
 
 
 def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
-                    blue_corner_starting_meter=0,random_seed=15):
+                    blue_corner_starting_meter=0,random_seed=15,include_0_and_7=True):
     """
     Simulate fights in order to get odds
 
@@ -87,7 +87,7 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         andre_deck = FighterDeck()
 
         # Set up the deck to draw from and the fighters
-        cards_in_game_box = GameDeck()
+        cards_in_game_box = GameDeck(include_0_and_7)
         my_bout = Bout(blue_corner_deck=marshall_deck, red_corner_deck=andre_deck, verbose=0,
                        blue_corner_starting_meter=blue_corner_starting_meter,
                        red_corner_starting_meter=red_corner_starting_meter)
@@ -116,10 +116,12 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
                 'count': value
             })
 
+    # Output to Dataframe to check how much different parameters matter
     df = pd.DataFrame(rows)
     df['red_meter'] = red_corner_starting_meter
-    df['blue_meter'] = blue_corner_starting_meter
+    #df['blue_meter'] = blue_corner_starting_meter
     df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100, 1)
+    df['include_0_and_7'] = include_0_and_7
     del df['count']  # Remove count once we get the percentages
     return df
 
@@ -127,10 +129,13 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # List of Fights to Try
-    fight_li = [simulate_fights(num_fights=10_000, red_corner_starting_meter=0),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=1),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=2),
-                ]
+    fight_li = [
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=0,include_0_and_7=False),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, include_0_and_7=True),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=1,include_0_and_7=False),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, include_0_and_7=True),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=2,include_0_and_7=False),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=2,include_0_and_7=True)]
 
     result_li = []
 

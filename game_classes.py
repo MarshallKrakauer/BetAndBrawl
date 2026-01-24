@@ -26,7 +26,7 @@ class Card:
 
 
 class GameDeck:
-    def __init__(self):
+    def __init__(self, include_0_and_7=True):
         self.card_list = []
 
         # Initialize the basic cards with no effect
@@ -40,23 +40,23 @@ class GameDeck:
         ]
 
         # Initialize cards that have single charge or discharge
-        single_charge_cards = [Card(0, 1),
-                               # Include copies of value 1 and 2
-                               Card(1, 1),
-                               Card(1, 1),
-                               Card(2, 1),
-                               Card(2, 1),
+        single_charge_cards = [
+            # Low cards charge
+            Card(1, 1),
+            Card(2, 1),
+            Card(3, 1),
 
-                               Card(3, 1),
-                               Card(4, -1),
+            # High Cards drain
+            Card(4, -1),
+            Card(5, -1),
+            Card(6, -1)]
 
-                               # Include copies of value 5 and 6
-                               Card(5, -1),
-                               Card(5, -1),
-
-                               Card(6, -1),
-                               Card(6, -1),
-                               Card(7, -1), ]
+        if include_0_and_7:
+            extra_cards = [Card(0, 1), Card(0,1),
+                           Card(7,-1),Card(7, -1)]
+        else:
+            extra_cards = [Card(1, 1), Card(1,1),
+                           Card(6,-1),Card(6, -1)]
 
         # Initialize dodge cards
         dodge_cards = [Card(is_dodge=True) for _ in range(6)]
@@ -65,7 +65,7 @@ class GameDeck:
         self.card_list.extend(basic_cards)
         self.card_list.extend(single_charge_cards)
         self.card_list.extend(dodge_cards)
-
+        self.card_list.extend(extra_cards)
         self.shuffle_deck()
 
     def shuffle_deck(self):

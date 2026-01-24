@@ -52,7 +52,21 @@ def process_fight_result(bout, counters, fight_number, verbose=0):
 
 
 def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
-                    blue_corner_starting_meter=0, ):
+                    blue_corner_starting_meter=0, super_charge_value=2,random_seed=15):
+    """
+    Simulate fights in order to get odds
+
+    Args:
+        num_fights: How many fights to simulate. 10K seems to be enough
+        red_corner_starting_meter = how much meter (bonus fight value) the red corner starts with
+        blue_corner_starting_meter = how meter (bonus fight value) the blue corner starts with
+        super_charge_value: Used to check if odds are different when 1,2,6,7 add or subtract 2 charge
+        random_seed: Set starting point for RNG, used ot get predictable outcomes
+
+    Returns:
+        pandas dataframe with key data from fights
+    """
+    random.seed(15)
     num_fights = num_fights
     fight_counter = 1
     counters = {
@@ -74,7 +88,7 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         andre_deck = FighterDeck()
 
         # Set up the deck to draw from and the fighters
-        cards_in_game_box = GameDeck()
+        cards_in_game_box = GameDeck(max_charge_value_abs_value=super_charge_value)
         my_bout = Bout(blue_corner_deck=marshall_deck, red_corner_deck=andre_deck, verbose=0,
                        blue_corner_starting_meter=blue_corner_starting_meter,
                        red_corner_starting_meter=red_corner_starting_meter)
@@ -84,7 +98,7 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
             andre_deck.add_card(cards_in_game_box.draw_card())
 
         my_bout.fight_bout()
-        result_of_fight = my_bout.get_results()
+        # result_of_fight = my_bout.get_results()
         process_fight_result(my_bout, counters, fight_counter, 0)
         fight_counter += 1
 
@@ -106,25 +120,28 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
     df = pd.DataFrame(rows)
     df['red_meter'] = red_corner_starting_meter
     df['blue_meter'] = blue_corner_starting_meter
-    df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100,1)
+    df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100, 1)
+    del df['count']  # Remove count once we get the percentages
+    df['super_charge_Value'] = super_charge_value
     return df
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    random.seed(15)
-
     # List of Fights to Try
-    fight_li = [simulate_fights(num_fights=10_000, red_corner_starting_meter=0, blue_corner_starting_meter=0),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=0),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=2, blue_corner_starting_meter=0),
-                simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=1)
+    fight_li = [simulate_fights(num_fights=10_000, red_corner_starting_meter=0),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=0, super_charge_value=1),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=1),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=1, super_charge_value=1),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=2),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=2, super_charge_value=1),
                 ]
 
     result_li = []
 
     # Try each fight, store in result list
     for idx, fight in enumerate(fight_li):
+        fight['fight_number'] = idx + 1
         result_li.append(fight)
-    all_result_df = pd.concat(result_li,axis=0, ignore_index=True)
+    all_result_df = pd.concat(result_li, axis=0, ignore_index=True)
     all_result_df.to_csv('all_results.csv', index=False)

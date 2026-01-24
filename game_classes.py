@@ -26,8 +26,11 @@ class Card:
 
 
 class GameDeck:
-    def __init__(self):
+    def __init__(self, max_charge_value_abs_value=2):
         self.card_list = []
+        self.max_charge_value_abs_value = max_charge_value_abs_value
+
+        # Initialize the basic cards with no effect
         basic_cards = [
             Card(1), Card(1), Card(1),
             Card(2), Card(2), Card(2),
@@ -36,17 +39,22 @@ class GameDeck:
             Card(5), Card(5), Card(5),
             Card(6), Card(6), Card(6),
         ]
-        double_charge_values = 2
-        double_charge_cards = [Card(0, double_charge_values), Card(1, double_charge_values),
-                               Card(6, double_charge_values * -1),
-                               Card(7, double_charge_values * -1)]
+
+        # Initialize cards that have single charge or discharge
         single_charge_cards = [Card(0, 1), Card(1, 1), Card(2, 1), Card(3, 1),
                                Card(4, -1), Card(5, -1), Card(6, -1), Card(7, -1)]
+
+        # Initialize dodge cards
         dodge_cards = [Card(is_dodge=True) for _ in range(6)]
+
+        # Initialize cards that charge twice
+        extra_charge_cards = [Card(0, self.max_charge_value_abs_value), Card(1, self.max_charge_value_abs_value),
+                               Card(6, self.max_charge_value_abs_value * -1),
+                               Card(7, self.max_charge_value_abs_value * -1)]
 
         # Assuming self.card_list is already initialized as an empty list: []
         self.card_list.extend(basic_cards)
-        self.card_list.extend(double_charge_cards)
+        self.card_list.extend(extra_charge_cards)
         self.card_list.extend(single_charge_cards)
         self.card_list.extend(dodge_cards)
 
@@ -115,8 +123,13 @@ class FighterDeck:
 
 class Bout:
 
-    def __init__(self, red_corner_deck, blue_corner_deck, verbose=0, punch_ko_threshold=PUNCH_KO_THRESHOLD,
-                 red_corner_starting_meter=0, blue_corner_starting_meter=0):
+    def __init__(self,
+                 red_corner_deck,
+                 blue_corner_deck,
+                 verbose=0,
+                 punch_ko_threshold=PUNCH_KO_THRESHOLD,
+                 red_corner_starting_meter=0,
+                 blue_corner_starting_meter=0):
 
         # Set up Rules of Fight
         self.round_results = ['_'] * BOUT_LENGTH

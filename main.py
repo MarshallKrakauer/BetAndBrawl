@@ -1,5 +1,8 @@
 # This is a sample Python script.
 import random
+import numpy as np
+import pandas as pd
+import copy
 from game_classes import Card, FighterDeck, Bout, GameDeck
 
 
@@ -85,35 +88,43 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         process_fight_result(my_bout, counters, fight_counter, 0)
         fight_counter += 1
 
+    rows = []
+
     for key, value in counters.items():
-        if key in ['draw_count', 'red_corner_ko_count', 'red_corner_decision_count',
-                   'blue_corner_ko_count', 'blue_corner_decision_count']:
-            print(key.replace('_', ' '), value)
+        if key in [
+            'draw_count',
+            'red_corner_ko_count',
+            'red_corner_decision_count',
+            'blue_corner_ko_count',
+            'blue_corner_decision_count'
+        ]:
+            rows.append({
+                'result_type': key.replace('_', ' ').replace(' count', ''),
+                'count': value
+            })
+
+    df = pd.DataFrame(rows)
+    df['red_meter'] = red_corner_starting_meter
+    df['blue_meter'] = blue_corner_starting_meter
+    df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100,1)
+    return df
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     random.seed(15)
 
-    # marshall_deck = FighterDeck()
-    # andre_deck = FighterDeck()
-    # ian_deck = FighterDeck()
-    # cards_in_game_box = GameDeck()
-    #
-    # for i in range(10):
-    #     print('######Iteration:', str(i + 1), '######')
-    #     my_card = cards_in_game_box.draw_card()
-    #     marshall_deck.add_card(my_card)
-    #     marshall_deck.print_deck()
+    # List of Fights to Try
+    fight_li = [simulate_fights(num_fights=10_000, red_corner_starting_meter=0, blue_corner_starting_meter=0),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=0),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=2, blue_corner_starting_meter=0),
+                simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=1)
+                ]
 
-    print("###No Meter###")
-    simulate_fights(num_fights=10_000, red_corner_starting_meter=0, blue_corner_starting_meter=0)
+    result_li = []
 
-    print("###1 Red Meter###")
-    simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=0)
-
-    print("###2 Red Meter###")
-    simulate_fights(num_fights=10_000, red_corner_starting_meter=2, blue_corner_starting_meter=0)
-
-    print("###1 Meter Each###")
-    simulate_fights(num_fights=10_000, red_corner_starting_meter=1, blue_corner_starting_meter=1)
+    # Try each fight, store in result list
+    for idx, fight in enumerate(fight_li):
+        result_li.append(fight)
+    all_result_df = pd.concat(result_li,axis=0, ignore_index=True)
+    all_result_df.to_csv('all_results.csv', index=False)

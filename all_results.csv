@@ -1,0 +1,21 @@
+result_type,count,red_meter,blue_meter,pct_of_outcomes
+draw,1335,0,0,13.4
+red corner ko,1999,0,0,20.0
+red corner decision,2304,0,0,23.0
+blue corner ko,1989,0,0,19.9
+blue corner decision,2373,0,0,23.7
+draw,1101,1,0,11.0
+red corner ko,3142,1,0,31.4
+red corner decision,2884,1,0,28.8
+blue corner ko,1126,1,0,11.3
+blue corner decision,1747,1,0,17.5
+draw,977,2,0,9.8
+red corner ko,4355,2,0,43.6
+red corner decision,2740,2,0,27.4
+blue corner ko,685,2,0,6.8
+blue corner decision,1243,2,0,12.4
+draw,1321,1,1,13.2
+red corner ko,1898,1,1,19.0
+red corner decision,2350,1,1,23.5
+blue corner ko,1998,1,1,20.0
+blue corner decision,2433,1,1,24.3

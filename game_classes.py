@@ -45,7 +45,7 @@ class GameDeck:
         value_1_through_6_list = [
             # Dupe 1 and 2
             Card(1, 1),
-            #Card(1, 1),
+            Card(1, 1),
 
             Card(2, 1),
             Card(2, 1),
@@ -56,33 +56,16 @@ class GameDeck:
             # Dupe 5 and 6
             Card(5, -1),
             Card(5, -1),
-            #Card(6, -1),
+
+            Card(6, -1),
             Card(6, -1),
 
         ]
-
-        value_0_and_7_list = []
-        if include_0_and_7:
-            value_0_and_7_list = [
-                Card(0, 1),
-                Card(0, 1),
-                Card(7, -1),
-                Card(7, -1),
-            ]
-        else:
-            value_0_and_7_list = [
-                Card(1, 1),
-                Card(1, 1),
-                Card(6, -1),
-                Card(6, -1),
-            ]
-
 
         # Assuming self.card_list is already initialized as an empty list: []
         self.card_list.extend(basic_cards)
         self.card_list.extend(value_1_through_6_list)
         self.card_list.extend(dodge_cards)
-        self.card_list.extend(value_0_and_7_list)
         self.shuffle_deck()
 
     def shuffle_deck(self):

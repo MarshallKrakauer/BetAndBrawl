@@ -134,9 +134,8 @@ if __name__ == '__main__':
     # List of Fights to Try
     fight_li = [
         simulate_fights(num_fights=10_000, red_corner_starting_meter=0, tko_threshold=3),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, tko_threshold=99999),
         simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=3),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=99999),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=2, tko_threshold=3),
     ]
 
     result_li = []

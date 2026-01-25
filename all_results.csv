@@ -4,18 +4,13 @@ red corner ko,0,19.8,3,1
 red corner decision,0,23.6,3,1
 blue corner ko,0,19.7,3,1
 blue corner decision,0,21.8,3,1
-draw,0,15.6,99999,2
-red corner ko,0,12.5,99999,2
-red corner decision,0,30.7,99999,2
-blue corner ko,0,12.6,99999,2
-blue corner decision,0,28.6,99999,2
-draw,1,12.5,3,3
-red corner ko,1,36.1,3,3
-red corner decision,1,28.3,3,3
-blue corner ko,1,9.3,3,3
-blue corner decision,1,13.9,3,3
-draw,1,13.0,99999,4
-red corner ko,1,25.2,99999,4
-red corner decision,1,38.7,99999,4
-blue corner ko,1,5.1,99999,4
-blue corner decision,1,18.0,99999,4
+draw,1,12.5,3,2
+red corner ko,1,36.1,3,2
+red corner decision,1,28.3,3,2
+blue corner ko,1,9.3,3,2
+blue corner decision,1,13.9,3,2
+draw,2,9.2,3,3
+red corner ko,2,48.9,3,3
+red corner decision,2,26.4,3,3
+blue corner ko,2,6.3,3,3
+blue corner decision,2,9.3,3,3

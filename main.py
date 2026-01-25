@@ -3,7 +3,9 @@ import random
 import numpy as np
 import pandas as pd
 import copy
-from game_classes import Card, FighterDeck, Bout, GameDeck
+from Bout import Bout
+from FighterDeck import FighterDeck
+from GameDeck import GameDeck
 
 
 def process_fight_result(bout, counters, fight_number, verbose=0):
@@ -52,7 +54,7 @@ def process_fight_result(bout, counters, fight_number, verbose=0):
 
 
 def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
-                    blue_corner_starting_meter=0, random_seed=15, include_0_and_7=True):
+                    blue_corner_starting_meter=0, random_seed=15, tko_threshold=3):
     """
     Simulate fights in order to get odds
 
@@ -87,10 +89,11 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         andre_deck = FighterDeck()
 
         # Set up the deck to draw from and the fighters
-        cards_in_game_box = GameDeck(include_0_and_7)
+        cards_in_game_box = GameDeck()
         my_bout = Bout(blue_corner_deck=marshall_deck, red_corner_deck=andre_deck, verbose=0,
                        blue_corner_starting_meter=blue_corner_starting_meter,
-                       red_corner_starting_meter=red_corner_starting_meter)
+                       red_corner_starting_meter=red_corner_starting_meter,
+                       tko_threshold=tko_threshold)
 
         for i in range(7):
             marshall_deck.add_card(cards_in_game_box.draw_card())
@@ -121,7 +124,7 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
     df['red_meter'] = red_corner_starting_meter
     # df['blue_meter'] = blue_corner_starting_meter
     df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100, 1)
-    df['include_0_and_7'] = include_0_and_7
+    df['tko_threshold'] = tko_threshold
     del df['count']  # Remove count once we get the percentages
     return df
 
@@ -130,12 +133,11 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
 if __name__ == '__main__':
     # List of Fights to Try
     fight_li = [
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, include_0_and_7=False),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, include_0_and_7=True),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, include_0_and_7=False),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, include_0_and_7=True),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=2, include_0_and_7=False),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=2, include_0_and_7=True)]
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, tko_threshold=3),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, tko_threshold=99999),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=3),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=99999),
+    ]
 
     result_li = []
 

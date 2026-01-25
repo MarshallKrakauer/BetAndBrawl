@@ -1,31 +1,21 @@
-result_type,red_meter,pct_of_outcomes,include_0_and_7,fight_number
-draw,0,16.4,False,1
-red corner ko,0,20.8,False,1
-red corner decision,0,20.3,False,1
-blue corner ko,0,21.0,False,1
-blue corner decision,0,21.4,False,1
-draw,0,16.4,True,2
-red corner ko,0,20.8,True,2
-red corner decision,0,20.3,True,2
-blue corner ko,0,21.0,True,2
-blue corner decision,0,21.4,True,2
-draw,1,11.8,False,3
-red corner ko,1,41.6,False,3
-red corner decision,1,29.7,False,3
-blue corner ko,1,7.7,False,3
-blue corner decision,1,9.2,False,3
-draw,1,11.8,True,4
-red corner ko,1,41.6,True,4
-red corner decision,1,29.7,True,4
-blue corner ko,1,7.7,True,4
-blue corner decision,1,9.2,True,4
-draw,2,6.0,False,5
-red corner ko,2,60.4,False,5
-red corner decision,2,28.7,False,5
-blue corner ko,2,2.2,False,5
-blue corner decision,2,2.7,False,5
-draw,2,6.0,True,6
-red corner ko,2,60.4,True,6
-red corner decision,2,28.7,True,6
-blue corner ko,2,2.2,True,6
-blue corner decision,2,2.7,True,6
+result_type,red_meter,pct_of_outcomes,tko_threshold,fight_number
+draw,0,15.2,3,1
+red corner ko,0,19.8,3,1
+red corner decision,0,23.6,3,1
+blue corner ko,0,19.7,3,1
+blue corner decision,0,21.8,3,1
+draw,0,15.6,99999,2
+red corner ko,0,12.5,99999,2
+red corner decision,0,30.7,99999,2
+blue corner ko,0,12.6,99999,2
+blue corner decision,0,28.6,99999,2
+draw,1,12.5,3,3
+red corner ko,1,36.1,3,3
+red corner decision,1,28.3,3,3
+blue corner ko,1,9.3,3,3
+blue corner decision,1,13.9,3,3
+draw,1,13.0,99999,4
+red corner ko,1,25.2,99999,4
+red corner decision,1,38.7,99999,4
+blue corner ko,1,5.1,99999,4
+blue corner decision,1,18.0,99999,4

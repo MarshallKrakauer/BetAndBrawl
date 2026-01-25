@@ -1,132 +1,9 @@
 import random
+from Card import Card
 
 METER_MAX = 2
 BOUT_LENGTH = 6
-TKO_THRESHOLD = 3
-PUNCH_KO_THRESHOLD = 999999999
-
-
-class Card:
-    def __init__(self, value=0, charge=0, is_dodge=False, is_reset=False):
-        self.value = value
-        self.charge = charge
-        self.is_dodge = is_dodge
-        self.is_reset = is_reset
-        if self.is_dodge:
-            self.dodge_string = ';' + 'Dodge'
-        else:
-            self.dodge_string = ''
-        if self.is_reset:
-            self.charge_string = 'Reset Charge'
-        else:
-            self.charge_string = 'Charge:' + str(self.charge)
-
-    def __str__(self):
-        return 'Value: ' + str(self.value) + ';' + self.charge_string + self.dodge_string
-
-
-class GameDeck:
-    def __init__(self, include_0_and_7=True):
-        self.card_list = []
-
-        # Initialize the basic cards with no effect
-        basic_cards = [
-            Card(1), Card(1), Card(1),
-            Card(2), Card(2), Card(2),
-            Card(3), Card(3), Card(3),
-            Card(4), Card(4), Card(4),
-            Card(5), Card(5), Card(5),
-            Card(6), Card(6), Card(6),
-        ]
-
-        # Initialize 6 dodge cards
-        dodge_cards = [Card(is_dodge=True) for _ in range(0)]
-
-        value_1_through_6_list = [
-            # Dupe 1 and 2
-            Card(1, 1),
-            Card(1, 1),
-
-            Card(2, 1),
-            Card(2, 1),
-
-            Card(3, 1),
-            Card(4, -1),
-
-            # Dupe 5 and 6
-            Card(5, -1),
-            Card(5, -1),
-
-            Card(6, -1),
-            Card(6, -1),
-
-        ]
-
-        # Assuming self.card_list is already initialized as an empty list: []
-        self.card_list.extend(basic_cards)
-        self.card_list.extend(value_1_through_6_list)
-        self.card_list.extend(dodge_cards)
-        self.shuffle_deck()
-
-    def shuffle_deck(self):
-        random.shuffle(self.card_list)
-
-    def draw_card(self):
-        if len(self.card_list) > 0:
-            current_card = self.card_list.pop()
-            return current_card
-        return None
-
-    def print_deck(self):
-        print("TOTAL DECK CARDS:", len(self.card_list))
-        for val in self.card_list:
-            print(val)
-
-
-class FighterDeck:
-    def __init__(self):
-        self.card_list = [Card(1), Card(2), Card(3), Card(4), Card(5), Card(6)]
-        self.discard = []
-
-    def __repr__(self):
-        for card in self.card_list:
-            print(card)
-
-    def print_deck(self):
-        print("TOTAL DECK CARDS:", len(self.card_list))
-        for val in self.card_list:
-            print(val)
-
-    def print_discard(self):
-        print("TOTAL DISCARD CARDS:", len(self.discard))
-        for val in self.discard:
-            print(val)
-
-    def shuffle_deck(self):
-        random.shuffle(self.card_list)
-
-    def draw_card(self):
-        if len(self.card_list) == 0:
-            return Card(0)
-
-        else:
-            current_card = self.card_list.pop()
-            self.discard.append(current_card)
-            return current_card
-
-    def add_card(self, new_card, verbose=0):
-        if verbose == 1:
-            print('you added...', new_card)
-        if len(self.card_list) < 7:
-            self.card_list.append(new_card)
-            self.shuffle_deck()
-        else:
-            self.shuffle_deck()
-            removed_card = self.card_list.pop()
-            if verbose == 1:
-                print('you removed...', removed_card)
-            self.card_list.append(new_card)
-            self.shuffle_deck()
+PUNCH_KO_THRESHOLD = 5
 
 
 class Bout:
@@ -137,12 +14,13 @@ class Bout:
                  verbose=0,
                  punch_ko_threshold=PUNCH_KO_THRESHOLD,
                  red_corner_starting_meter=0,
-                 blue_corner_starting_meter=0):
+                 blue_corner_starting_meter=0,
+                 tko_threshold=3):
 
         # Set up Rules of Fight
         self.round_results = ['_'] * BOUT_LENGTH
         self.punch_ko_threshold = punch_ko_threshold
-        self.tko_threshold = TKO_THRESHOLD
+        self.tko_threshold = tko_threshold
 
         # Set up Starting meter
         # For added clarity, "meter" refers to how much is added/subtracted
@@ -227,11 +105,13 @@ class Bout:
         red_corner_card = self.red_corner_deck.draw_card()
         blue_corner_card = self.blue_corner_deck.draw_card()
 
-        # Does the round involve a dodge. This creates an automated draw
-        round_has_dodge = red_corner_card.is_dodge or blue_corner_card.is_dodge
+        # Does the round involve a Reset. This creates an automated draw
+        round_has_reset = red_corner_card.all_meter_reset or blue_corner_card.all_meter_reset
 
-        if round_has_dodge:
+        if round_has_reset:
             self.red_corner_meter, self.blue_corner_meter = 0, 0
+
+        round_has_dodge = blue_corner_card.is_dodge or red_corner_card.is_dodge
         # Get values on cards. This plus meter will decide winner of round
         red_corner_card_value = red_corner_card.value
         blue_corner_card_value = blue_corner_card.value
@@ -248,7 +128,7 @@ class Bout:
         blue_corner_round_value = blue_corner_card_value + self.blue_corner_meter
 
         # Most important_part, check for who won the round
-        if round_has_dodge or red_corner_round_value == blue_corner_round_value:
+        if round_has_dodge or (red_corner_round_value == blue_corner_round_value):
             round_result = 'D'
             self.previous_round_winner = 'draw'
             self.round_streak = 0

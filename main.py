@@ -2,7 +2,6 @@
 import random
 import numpy as np
 import pandas as pd
-import copy
 from Bout import Bout
 from FighterDeck import FighterDeck
 from GameDeck import GameDeck
@@ -54,7 +53,7 @@ def process_fight_result(bout, counters, fight_number, verbose=0):
 
 
 def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
-                    blue_corner_starting_meter=0, random_seed=15, tko_threshold=3):
+                    blue_corner_starting_meter=0, random_seed=15, tko_threshold=10):
     """
     Simulate fights in order to get odds
 
@@ -132,10 +131,11 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # List of Fights to Try
+    tko_threshold = 3
     fight_li = [
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, tko_threshold=3),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=3),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=2, tko_threshold=3),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=0, tko_threshold=tko_threshold ),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=tko_threshold ),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=2, tko_threshold=tko_threshold ),
     ]
 
     result_li = []

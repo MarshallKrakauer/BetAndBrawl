@@ -108,9 +108,6 @@ class Bout:
         # Does the round involve a Reset. This creates an automated draw
         round_has_reset = red_corner_card.all_meter_reset or blue_corner_card.all_meter_reset
 
-        if round_has_reset:
-            self.red_corner_meter, self.blue_corner_meter = 0, 0
-
         round_has_dodge = blue_corner_card.is_dodge or red_corner_card.is_dodge
         # Get values on cards. This plus meter will decide winner of round
         red_corner_card_value = red_corner_card.value
@@ -140,17 +137,22 @@ class Bout:
             round_result = 'R'
 
         # Blue Corner Wins the round
-        else:
+        elif blue_corner_round_value > red_corner_round_value:
             round_difference = blue_corner_round_value - red_corner_round_value
             self.handle_victory('blue_corner', round_difference)
             round_result = 'B'
+        else:
+            raise ValueError("No roudn winner was determined")
 
         # Update Meter
         # Min/Max functions prevent value from going over 2 or under -2
         # 2 being the default, may be adjusted as game is tested
 
-        self.blue_corner_meter = max(min(self.blue_corner_meter + blue_corner_charge, METER_MAX), METER_MAX * -1)
-        self.red_corner_meter = max(min(self.red_corner_meter + red_corner_charge, METER_MAX), METER_MAX * -1)
+        if round_has_reset:
+            self.red_corner_meter, self.blue_corner_meter = 0, 0
+        else:
+            self.blue_corner_meter = max(min(self.blue_corner_meter + blue_corner_charge, METER_MAX), METER_MAX * -1)
+            self.red_corner_meter = max(min(self.red_corner_meter + red_corner_charge, METER_MAX), METER_MAX * -1)
 
         self.round_results[self.round_number] = round_result
         self.round_number += 1

@@ -6,12 +6,12 @@ class GameDeck:
 
         # Initialize the basic cards with no effect
         basic_cards = [
-            Card(1), Card(1), Card(1), #Card(1),
-            Card(2), Card(2), Card(2), #Card(2),
-            Card(3), Card(3), Card(3), #Card(3),
-            Card(4), Card(4), Card(4), #Card(4),
-            Card(5), Card(5), Card(5), #Card(5),
-            Card(6), Card(6), Card(6), #Card(6),
+            Card(1,-1), Card(1,-1), Card(1,-1), #Card(1),
+            Card(2,-1), Card(2,-1), Card(2,-1), #Card(2),
+            Card(3,0,True), Card(3,0,True), Card(3,0,True), #Card(3),
+            Card(4,0,True), Card(4,0,True), Card(4,0,True), #Card(4),
+            Card(5,1), Card(5,1), Card(5,1), #Card(5),
+            Card(6,1), Card(6,1), Card(6,1), #Card(6),
         ]
 
         value_1_through_6_list = [

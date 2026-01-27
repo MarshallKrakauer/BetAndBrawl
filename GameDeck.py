@@ -1,43 +1,45 @@
 from Card import Card
 import random
+
+
 class GameDeck:
     def __init__(self):
         self.card_list = []
 
         # Initialize the basic cards with no effect
         basic_cards = [
-            Card(1,-1), Card(1,-1), Card(1,-1), #Card(1),
-            Card(2,-1), Card(2,-1), Card(2,-1), #Card(2),
-            Card(3,0,True), Card(3,0,True), Card(3,0,True), #Card(3),
-            Card(4,0,True), Card(4,0,True), Card(4,0,True), #Card(4),
-            Card(5,1), Card(5,1), Card(5,1), #Card(5),
-            Card(6,1), Card(6,1), Card(6,1), #Card(6),
+            Card(1, False), Card(1, False), Card(1, False),
+            Card(2, False), Card(2, False), Card(2, False),
+            Card(3, False), Card(3, False), Card(3, False),
+            Card(4, False), Card(4, False), Card(4, False),
+            Card(5, False), Card(5, False), Card(5, False),
+            Card(6, False), Card(6, False), Card(6, False),
         ]
 
         value_1_through_6_list = [
             # Dupe 1 and 2
-            Card(1, 1),
-            Card(1, 1),
-            Card(1, 1),
+            Card(1, True),
+            Card(1, True),
+            Card(1, True),
 
-            Card(2, 1),
-            Card(2, 1),
-            Card(2, 1),
+            Card(2, True),
+            Card(2, True),
+            Card(2, True),
 
-            Card(3, 0, True),
-            Card(3, 0, True),
+            Card(3, True),
+            Card(3, True),
 
-            Card(4, 0, True),
-            Card(4, 0, True),
+            Card(4, True),
+            Card(4, True),
 
             # Dupe 5 and 6
-            Card(5, -1),
-            Card(5, -1),
-            Card(5, -1),
+            Card(5, True),
+            Card(5, True),
+            Card(5, True),
 
-            Card(6, -1),
-            Card(6, -1),
-            Card(6, -1)
+            Card(6, True),
+            Card(6, True),
+            Card(6, True)
         ]
 
         # Placeholder for dodge cards, rule not actually in place

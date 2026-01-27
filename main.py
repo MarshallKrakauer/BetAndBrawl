@@ -53,7 +53,7 @@ def process_fight_result(bout, counters, fight_number, verbose=0):
 
 
 def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
-                    blue_corner_starting_meter=0, random_seed=15, tko_threshold=10):
+                    blue_corner_starting_meter=0, random_seed=15, tko_threshold=3):
     """
     Simulate fights in order to get odds
 
@@ -121,6 +121,7 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
     # Output to Dataframe to check how much different parameters matter
     df = pd.DataFrame(rows)
     df['red_meter'] = red_corner_starting_meter
+    df['blue_meter'] = blue_corner_starting_meter
     # df['blue_meter'] = blue_corner_starting_meter
     df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100, 1)
     df['tko_threshold'] = tko_threshold
@@ -135,7 +136,8 @@ if __name__ == '__main__':
     fight_li = [
         simulate_fights(num_fights=10_000, red_corner_starting_meter=0, tko_threshold=tko_threshold ),
         simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=tko_threshold ),
-        simulate_fights(num_fights=10_000, red_corner_starting_meter=2, tko_threshold=tko_threshold ),
+        simulate_fights(num_fights=10_000, red_corner_starting_meter=1, tko_threshold=tko_threshold,
+                        blue_corner_starting_meter=-1),
     ]
 
     result_li = []

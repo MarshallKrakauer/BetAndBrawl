@@ -142,7 +142,7 @@ class Bout:
             self.handle_victory('blue_corner', round_difference)
             round_result = 'B'
         else:
-            raise ValueError("No roudn winner was determined")
+            raise ValueError("No round winner was determined")
 
         # Update Meter
         # Min/Max functions prevent value from going over 2 or under -2

@@ -1,10 +1,22 @@
 import random
 class Card:
-    def __init__(self, value=0, charge=0, all_meter_reset=False, is_dodge=False):
+    def __init__(self, value=0, has_charge = False, is_dodge=False):
+        # Set default values of cards
+        self.charge = 0
+        self.all_meter_reset = False
         self.value = value
-        self.charge = charge
         self.is_dodge = is_dodge
-        self.all_meter_reset = all_meter_reset
+
+        # For cards that charge/drain, change their values
+        if has_charge:
+            if self.value in (1,2):
+                self.charge = 1
+            elif self.value in (5,6):
+                self.charge = -1
+            elif self.value in (3,4):
+                self.all_meter_reset = True
+
+        # Get string value of charge
         if self.all_meter_reset:
             self.charge_string = 'Reset Charge'
         else:

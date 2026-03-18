@@ -22,7 +22,7 @@ def process_fight_result(bout, counters, fight_number, verbose=0):
     result_of_fight = bout.get_results()
     winner = result_of_fight['winner']
     ko_win = result_of_fight['ko_win']
-
+    #print(winner, )
     # Update win counters
     if winner == 'red_corner':
         counters['red_corner_win_count'] += 1

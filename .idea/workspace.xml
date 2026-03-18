@@ -7,8 +7,6 @@
     <list default="true" id="1d64520c-9714-4c29-bb06-cbfa1f9b401b" name="Default Changelist" comment="making all cards effect cards">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bout.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Card.py" beforeDir="false" afterPath="$PROJECT_DIR$/Card.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameDeck.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameDeck.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/all_results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/all_results.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -30,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="no_draw" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,7 +61,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "all__effect__cards",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -104,7 +102,6 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.29346.142" />
         <option value="bundled-python-sdk-f2b7a9f6281b-6e1f45a539f7-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.29346.142" />
       </set>
     </attachedChunks>
@@ -118,6 +115,8 @@
       <option name="presentableId" value="Default" />
       <updated>1756660672599</updated>
       <workItem from="1769134475953" duration="7248000" />
+      <workItem from="1769652507462" duration="953000" />
+      <workItem from="1773793032076" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="remove support change home and away to blue corner and red corner">
       <option name="closed" value="true" />
@@ -286,6 +285,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="making all cards effect cards" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/BetAndBrawl$main.coverage" NAME="main Coverage Results" MODIFIED="1769488506741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BetAndBrawl$main.coverage" NAME="main Coverage Results" MODIFIED="1769653035195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

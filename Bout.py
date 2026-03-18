@@ -35,6 +35,7 @@ class Bout:
         self.blue_corner_deck.shuffle_deck()
 
         # Initialize Fight variables to start of fight values
+        self.last_non_draw_winner = 'draw'
         self.round_number = 0
         self.previous_round_winner = 'Start of bout'
         self.round_streak = 0
@@ -92,6 +93,8 @@ class Bout:
             self.blue_corner_wins += 1
 
         self.previous_round_winner = winner
+        if winner == 'blue_corner' or winner == 'red_corner':
+            self.last_non_draw_winner = winner
 
         # Check for KO conditions
         if round_resulted_in_ko and self.verbose == 1:
@@ -148,7 +151,9 @@ class Bout:
         # Min/Max functions prevent value from going over 2 or under -2
         # 2 being the default, may be adjusted as game is tested
 
-        if round_has_reset:
+        if round_has_dodge:
+            pass # Dodge Cancels all effect
+        elif round_has_reset:
             self.red_corner_meter, self.blue_corner_meter = 0, 0
         else:
             self.blue_corner_meter = max(min(self.blue_corner_meter + blue_corner_charge, METER_MAX), METER_MAX * -1)
@@ -167,8 +172,9 @@ class Bout:
             self.bout_winner = self.previous_round_winner
             if self.verbose == 1:
                 print("KO!!!!")
-            # return self.previous_round_winner
-
+        # if self.bout_winner == 'Draw':
+        #     self.bout_winner = self.previous_round_winner
+        #print(self.bout_winner)
         self.show_rounds()
 
     def show_rounds(self):
@@ -193,6 +199,9 @@ class Bout:
             print("THE FINAL RESULT", self.bout_winner, 'by', win_method)
 
     def get_results(self):
+
+        #if self.bout_winner == 'draw':
+        #    self.bout_winner = self.last_non_draw_winner
         if self.bout_ended_in_ko:
             decision_win = 0
         else:

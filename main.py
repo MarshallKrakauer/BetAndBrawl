@@ -5,6 +5,7 @@ import pandas as pd
 from Bout import Bout
 from FighterDeck import FighterDeck
 from GameDeck import GameDeck
+from database import create_table, load_dataframe
 
 
 def process_fight_result(bout, counters, fight_number, verbose=0):
@@ -131,6 +132,8 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    create_table()
+
     # List of Fights to Try
     tko_threshold = 3
     fight_li = [
@@ -148,3 +151,4 @@ if __name__ == '__main__':
         result_li.append(fight)
     all_result_df = pd.concat(result_li, axis=0, ignore_index=True)
     all_result_df.to_csv('all_results.csv', index=False)
+    load_dataframe(all_result_df)

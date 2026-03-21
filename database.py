@@ -30,6 +30,25 @@ def create_table():
         """)
 
 
+def load_dataframe(df):
+    """Load a fight results DataFrame into the fight_results table.
+
+    Adds a time_added timestamp and a fight_id UUID shared across all rows
+    in this load, making each batch identifiable.
+
+    Args:
+        df (pd.DataFrame): DataFrame with the fight results columns.
+    """
+    df = df.copy()
+    df['time_added'] = datetime.now().isoformat()
+    df['fight_id'] = str(uuid.uuid4())
+
+    with get_connection() as conn:
+        df.to_sql('fight_results', conn, if_exists='append', index=False)
+
+    print(f"Loaded {len(df)} rows with fight_id={df['fight_id'].iloc[0]}")
+
+
 def load_csv(csv_path='all_results.csv'):
     """Load a fight results CSV into the fight_results table.
 

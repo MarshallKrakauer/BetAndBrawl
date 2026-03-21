@@ -3,7 +3,18 @@ import random
 
 
 class GameDeck:
+    """Represents the shared game box deck from which fighters acquire cards.
+
+    The game deck contains a full set of cards including basic (no-effect) cards,
+    charge-effect cards, and dodge cards. Fighters draw from this deck during
+    setup to customize their personal decks before a bout.
+
+    Attributes:
+        card_list (list[Card]): The shuffled pool of available cards.
+    """
+
     def __init__(self):
+        """Initialize a GameDeck with all basic, charge-effect, and dodge cards, then shuffle."""
         self.card_list = []
 
         # Initialize the basic cards with no effect
@@ -53,15 +64,22 @@ class GameDeck:
         self.shuffle_deck()
 
     def shuffle_deck(self):
+        """Shuffle the card list in place."""
         random.shuffle(self.card_list)
 
     def draw_card(self):
+        """Draw the top card from the game deck.
+
+        Returns:
+            Card: The drawn card, or None if the deck is empty.
+        """
         if len(self.card_list) > 0:
             current_card = self.card_list.pop()
             return current_card
         return None
 
     def print_deck(self):
+        """Print the total card count and each card in the deck."""
         print("TOTAL DECK CARDS:", len(self.card_list))
         for val in self.card_list:
             print(val)

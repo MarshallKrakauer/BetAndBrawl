@@ -169,7 +169,7 @@ class Bout:
         """Play a single round of the bout.
 
         Each fighter draws a card. The round value is the card value plus the
-        fighter's current meter. The higher total wins the round. Dodge cards
+        fighter's current meter. The higher total wins the round. Cancel cards
         and meter-reset cards trigger special rules. Updates meters, round
         results, and the round counter.
         """
@@ -180,7 +180,7 @@ class Bout:
         # Does the round involve a Reset. This creates an automated draw
         round_has_reset = red_corner_card.all_meter_reset or blue_corner_card.all_meter_reset
 
-        round_has_dodge = blue_corner_card.is_dodge or red_corner_card.is_dodge
+        round_has_cancel_card = blue_corner_card.is_cancel or red_corner_card.is_cancel
         # Get values on cards. This plus meter will decide winner of round
         red_corner_card_value = red_corner_card.value
         blue_corner_card_value = blue_corner_card.value
@@ -197,7 +197,7 @@ class Bout:
         blue_corner_round_value = blue_corner_card_value + self.blue_corner_meter
 
         # Most important_part, check for who won the round
-        if round_has_dodge or (red_corner_round_value == blue_corner_round_value):
+        if round_has_cancel_card or (red_corner_round_value == blue_corner_round_value):
             round_result = 'D'
             self.previous_round_winner = 'draw'
             self.round_streak = 0
@@ -220,8 +220,8 @@ class Bout:
         # Min/Max functions prevent value from going over 2 or under -2
         # 2 being the default, may be adjusted as game is tested
 
-        if round_has_dodge:
-            pass # Dodge Cancels all effect
+        if round_has_cancel_card:
+            pass  # Cancel card forces a draw, no meter effects applied
         elif round_has_reset:
             self.red_corner_meter, self.blue_corner_meter = 0, 0
         else:

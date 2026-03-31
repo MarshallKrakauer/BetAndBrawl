@@ -6,7 +6,7 @@ class GameDeck:
     """Represents the shared game box deck from which fighters acquire cards.
 
     The game deck contains a full set of cards including basic (no-effect) cards,
-    charge-effect cards, and dodge cards. Fighters draw from this deck during
+    charge-effect cards, and cancel cards. Fighters draw from this deck during
     setup to customize their personal decks before a bout.
 
     Attributes:
@@ -14,7 +14,7 @@ class GameDeck:
     """
 
     def __init__(self):
-        """Initialize a GameDeck with all basic, charge-effect, and dodge cards, then shuffle."""
+        """Initialize a GameDeck with all basic, charge-effect, and cancel cards, then shuffle."""
         self.card_list = []
 
         # Initialize the basic cards with no effect
@@ -53,9 +53,9 @@ class GameDeck:
             Card(6, True)
         ]
 
-        # Placeholder for dodge cards, rule not actually in place
-        dodge_cards = [Card(is_dodge=True) for _ in range(6)]
-        self.card_list.extend(dodge_cards)
+        # Cancel cards force a draw for the round
+        cancel_cards = [Card(is_cancel=True) for _ in range(6)]
+        self.card_list.extend(cancel_cards)
 
         # Include the main cards
         self.card_list.extend(basic_cards)

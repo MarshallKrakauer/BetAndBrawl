@@ -1,74 +1,22 @@
 import random
 import numpy as np
 import pandas as pd
-from Bout import Bout
+from Bout import Bout, BOUT_LENGTH, METER_MAX, PUNCH_KO_THRESHOLD
 from FighterDeck import FighterDeck
 from GameDeck import GameDeck
 
-
-def process_fight_result(bout, counters, fight_number, verbose=0):
-    """
-    Process the result of a fight and update all relevant counters.
-
-    Args:
-        bout: The bout object to get results from
-        counters: Dictionary containing all counter variables
-        fight_number: Current fight number
-
-    Returns:
-        Updated fight_number (incremented by 1)
-    """
-    result_of_fight = bout.get_results()
-    winner = result_of_fight['winner']
-    ko_win = result_of_fight['ko_win']
-    #print(winner, )
-    # Update win counters
-    if winner == 'red_corner':
-        counters['red_corner_win_count'] += 1
-        if ko_win == 1:
-            counters['red_corner_ko_count'] += 1
-        else:
-            counters['red_corner_decision_count'] += 1
-    elif winner == 'blue_corner':
-        counters['blue_corner_win_count'] += 1
-        if ko_win == 1:
-            counters['blue_corner_ko_count'] += 1
-        else:
-            counters['blue_corner_decision_count'] += 1
-    else:
-        counters['draw_count'] += 1
-
-    # Update other fight outcome counters
-    counters['ko_count'] += result_of_fight['ko_win']
-    counters['tko_count'] += result_of_fight['tko_win']
-    counters['punch_ko_count'] += result_of_fight['punch_ko_win']
-    counters['decision_count'] += result_of_fight['decision_win']
-
-    if verbose == 1:
-        print(result_of_fight)
-        print("End of Fight #", str(fight_number))
-
-    return fight_number + 1
+_RESULT_KEYS = [
+    'draw_count',
+    'red_corner_ko_count',
+    'red_corner_decision_count',
+    'blue_corner_ko_count',
+    'blue_corner_decision_count',
+]
 
 
-def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
-                    blue_corner_starting_meter=0, random_seed=15, tko_threshold=3):
-    """
-    Simulate fights in order to get odds
-
-    Args:
-        num_fights: How many fights to simulate. 10K seems to be enough
-        red_corner_starting_meter: how much meter (bonus fight value) the red corner starts with
-        blue_corner_starting_meter: how meter (bonus fight value) the blue corner starts with
-        random_seed: Set starting point for RNG, used ot get predictable outcomes
-
-    Returns:
-        pandas dataframe with key data from fights
-    """
-    random.seed(random_seed)
-    num_fights = num_fights
-    fight_counter = 1
-    counters = {
+def _fresh_counters():
+    """Return a zeroed-out counters dictionary."""
+    return {
         'red_corner_win_count': 0,
         'blue_corner_win_count': 0,
         'draw_count': 0,
@@ -79,49 +27,109 @@ def simulate_fights(num_fights=10_000, red_corner_starting_meter=0,
         'ko_count': 0,
         'tko_count': 0,
         'punch_ko_count': 0,
-        'decision_count': 0
+        'decision_count': 0,
     }
-    while fight_counter <= num_fights:
-        # Set up the two rival fighters
-        marshall_deck = FighterDeck()
-        andre_deck = FighterDeck()
 
-        # Set up the deck to draw from and the fighters
-        cards_in_game_box = GameDeck()
-        my_bout = Bout(blue_corner_deck=marshall_deck, red_corner_deck=andre_deck, verbose=0,
-                       blue_corner_starting_meter=blue_corner_starting_meter,
-                       red_corner_starting_meter=red_corner_starting_meter,
-                       tko_threshold=tko_threshold)
 
-        for i in range(7):
-            marshall_deck.add_card(cards_in_game_box.draw_card())
-            andre_deck.add_card(cards_in_game_box.draw_card())
+def process_fight_result(bout, counters, fight_number, verbose=0):
+    """Process the result of a single fight and update counters.
 
-        my_bout.fight_bout()
-        # result_of_fight = my_bout.get_results()
-        process_fight_result(my_bout, counters, fight_counter, 0)
+    Args:
+        bout (Bout): The completed bout object.
+        counters (dict): Running totals dictionary to update in place.
+        fight_number (int): The current fight index (used for verbose output).
+        verbose (int): If 1, prints the result and fight number.
+
+    Returns:
+        int: fight_number incremented by 1.
+    """
+    result = bout.get_results()
+    winner = result['winner']
+
+    if winner == 'red_corner':
+        counters['red_corner_win_count'] += 1
+        counters['red_corner_ko_count' if result['ko_win'] else 'red_corner_decision_count'] += 1
+    elif winner == 'blue_corner':
+        counters['blue_corner_win_count'] += 1
+        counters['blue_corner_ko_count' if result['ko_win'] else 'blue_corner_decision_count'] += 1
+    else:
+        counters['draw_count'] += 1
+
+    counters['ko_count'] += result['ko_win']
+    counters['tko_count'] += result['tko_win']
+    counters['punch_ko_count'] += result['punch_ko_win']
+    counters['decision_count'] += result['decision_win']
+
+    if verbose == 1:
+        print(result)
+        print("End of Fight #", fight_number)
+
+    return fight_number + 1
+
+
+def simulate_fights(num_fights=10_000,
+                    red_corner_starting_meter=0,
+                    blue_corner_starting_meter=0,
+                    random_seed=15,
+                    tko_threshold=3,
+                    punch_ko_threshold=PUNCH_KO_THRESHOLD,
+                    bout_length=BOUT_LENGTH,
+                    meter_max=METER_MAX):
+    """Simulate a batch of fights and return outcome percentages as a DataFrame.
+
+    Args:
+        num_fights (int): Number of fights to simulate. Defaults to 10,000.
+        red_corner_starting_meter (int): Red corner's starting meter bonus. Defaults to 0.
+        blue_corner_starting_meter (int): Blue corner's starting meter bonus. Defaults to 0.
+        random_seed (int): RNG seed for reproducible results. Defaults to 15.
+        tko_threshold (int): Consecutive wins needed to trigger a TKO. Defaults to 3.
+        punch_ko_threshold (int): Minimum round-value gap for a punch KO. Defaults to PUNCH_KO_THRESHOLD.
+        bout_length (int): Number of rounds per fight. Defaults to BOUT_LENGTH.
+        meter_max (int): Maximum (and minimum as negative) meter value. Defaults to METER_MAX.
+
+    Returns:
+        pd.DataFrame: One row per result type with columns for outcome percentages
+                      and all simulation parameters.
+    """
+    random.seed(random_seed)
+    counters = _fresh_counters()
+    fight_counter = 1
+
+    for _ in range(num_fights):
+        red_deck = FighterDeck()
+        blue_deck = FighterDeck()
+        game_deck = GameDeck()
+
+        for _ in range(7):
+            red_deck.add_card(game_deck.draw_card())
+            blue_deck.add_card(game_deck.draw_card())
+
+        bout = Bout(
+            red_corner_deck=red_deck,
+            blue_corner_deck=blue_deck,
+            red_corner_starting_meter=red_corner_starting_meter,
+            blue_corner_starting_meter=blue_corner_starting_meter,
+            tko_threshold=tko_threshold,
+            punch_ko_threshold=punch_ko_threshold,
+            bout_length=bout_length,
+            meter_max=meter_max,
+        )
+        bout.fight_bout()
+        process_fight_result(bout, counters, fight_counter)
         fight_counter += 1
 
-    rows = []
+    rows = [
+        {'result_type': key.replace('_', ' ').replace(' count', ''), 'count': counters[key]}
+        for key in _RESULT_KEYS
+    ]
 
-    for key, value in counters.items():
-        if key in [
-            'draw_count',
-            'red_corner_ko_count',
-            'red_corner_decision_count',
-            'blue_corner_ko_count',
-            'blue_corner_decision_count'
-        ]:
-            rows.append({
-                'result_type': key.replace('_', ' ').replace(' count', ''),
-                'count': value
-            })
-
-    # Output to Dataframe to check how much different parameters matter
     df = pd.DataFrame(rows)
+    df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100, 1)
     df['red_meter'] = red_corner_starting_meter
     df['blue_meter'] = blue_corner_starting_meter
-    df['pct_of_outcomes'] = np.round(df['count'] / num_fights * 100, 1)
     df['tko_threshold'] = tko_threshold
-    del df['count']  # Remove count once we get the percentages
+    df['punch_ko_threshold'] = punch_ko_threshold
+    df['bout_length'] = bout_length
+    df['meter_max'] = meter_max
+    del df['count']
     return df

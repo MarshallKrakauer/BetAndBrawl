@@ -42,7 +42,9 @@ class Bout:
                  punch_ko_threshold=PUNCH_KO_THRESHOLD,
                  red_corner_starting_meter=0,
                  blue_corner_starting_meter=0,
-                 tko_threshold=3):
+                 tko_threshold=3,
+                 bout_length=BOUT_LENGTH,
+                 meter_max=METER_MAX):
         """Initialize a Bout between two fighters.
 
         Args:
@@ -58,12 +60,17 @@ class Bout:
                 Defaults to 0.
             tko_threshold (int): Consecutive wins required to trigger a TKO.
                 Defaults to 3.
+            bout_length (int): Number of rounds in the bout.
+                Defaults to BOUT_LENGTH.
+            meter_max (int): Maximum (and minimum, as negative) meter value allowed.
+                Defaults to METER_MAX.
         """
 
         # Set up Rules of Fight
-        self.round_results = ['_'] * BOUT_LENGTH
+        self.round_results = ['_'] * bout_length
         self.punch_ko_threshold = punch_ko_threshold
         self.tko_threshold = tko_threshold
+        self.meter_max = meter_max
 
         # Set up Starting meter
         # For added clarity, "meter" refers to how much is added/subtracted
@@ -218,8 +225,8 @@ class Bout:
         elif round_has_reset:
             self.red_corner_meter, self.blue_corner_meter = 0, 0
         else:
-            self.blue_corner_meter = max(min(self.blue_corner_meter + blue_corner_charge, METER_MAX), METER_MAX * -1)
-            self.red_corner_meter = max(min(self.red_corner_meter + red_corner_charge, METER_MAX), METER_MAX * -1)
+            self.blue_corner_meter = max(min(self.blue_corner_meter + blue_corner_charge, self.meter_max), self.meter_max * -1)
+            self.red_corner_meter = max(min(self.red_corner_meter + red_corner_charge, self.meter_max), self.meter_max * -1)
 
         self.round_results[self.round_number] = round_result
         self.round_number += 1

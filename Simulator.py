@@ -84,9 +84,9 @@ def simulate_fights(num_fights=10_000,
         blue_corner_starting_meter (int): Blue corner's starting meter bonus. Defaults to 0.
         random_seed (int): RNG seed for reproducible results. Defaults to 15.
         tko_threshold (int): Consecutive wins needed to trigger a TKO. Defaults to 3.
-        punch_ko_threshold (int): Minimum round-value gap for a punch KO. Defaults to PUNCH_KO_THRESHOLD.
-        bout_length (int): Number of rounds per fight. Defaults to BOUT_LENGTH.
-        meter_max (int): Maximum (and minimum as negative) meter value. Defaults to METER_MAX.
+        punch_ko_threshold (int): Minimum round-value gap for a punch KO. Defaults to 5.
+        bout_length (int): Number of rounds per fight. Defaults to 6.
+        meter_max (int): Maximum (and minimum as negative) meter value. Defaults to 2.
         fight_allows_draw (bool): If False, bout draws are awarded to the last
             round winner (or red_corner if all rounds tied). Defaults to False.
 

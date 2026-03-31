@@ -1,7 +1,7 @@
 import random
 import numpy as np
 import pandas as pd
-from Bout import Bout, BOUT_LENGTH, METER_MAX, PUNCH_KO_THRESHOLD
+from Bout import Bout
 from FighterDeck import FighterDeck
 from GameDeck import GameDeck
 
@@ -72,9 +72,9 @@ def simulate_fights(num_fights=10_000,
                     blue_corner_starting_meter=0,
                     random_seed=15,
                     tko_threshold=3,
-                    punch_ko_threshold=PUNCH_KO_THRESHOLD,
-                    bout_length=BOUT_LENGTH,
-                    meter_max=METER_MAX,
+                    punch_ko_threshold=5,
+                    bout_length=6,
+                    meter_max=2,
                     fight_allows_draw=False):
     """Simulate a batch of fights and return outcome percentages as a DataFrame.
 

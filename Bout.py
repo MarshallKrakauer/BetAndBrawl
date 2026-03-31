@@ -1,10 +1,6 @@
 import random
 from Card import Card
 
-METER_MAX = 2
-BOUT_LENGTH = 6
-PUNCH_KO_THRESHOLD = 5
-
 
 class Bout:
     """Simulates a single bout (fight) between two fighters.
@@ -41,12 +37,12 @@ class Bout:
                  red_corner_deck,
                  blue_corner_deck,
                  verbose=0,
-                 punch_ko_threshold=PUNCH_KO_THRESHOLD,
+                 punch_ko_threshold=5,
                  red_corner_starting_meter=0,
                  blue_corner_starting_meter=0,
                  tko_threshold=3,
-                 bout_length=BOUT_LENGTH,
-                 meter_max=METER_MAX,
+                 bout_length=6,
+                 meter_max=2,
                  fight_allows_draw=False):
         """Initialize a Bout between two fighters.
 

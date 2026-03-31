@@ -81,8 +81,8 @@ class Bout:
         self.blue_corner_meter = blue_corner_starting_meter
 
         # Create decks for each fighter
-        self.red_corner_deck = blue_corner_deck
-        self.blue_corner_deck = red_corner_deck
+        self.red_corner_deck = red_corner_deck
+        self.blue_corner_deck = blue_corner_deck
         self.red_corner_deck.shuffle_deck()
         self.blue_corner_deck.shuffle_deck()
 
@@ -116,19 +116,20 @@ class Bout:
         Returns:
             bool: True if a KO condition was met, False otherwise.
         """
-        # Ties can't possibly result in KO
-        if self.previous_round_winner == 'tie':
-            return False
-        # Hitting a streak of three rounds is a KO
-        if self.previous_round_winner == winner and self.round_streak == self.tko_threshold - 1:
-            self.bout_ended_in_ko = True
-            self.bout_ended_in_tko = True
-            return True
-
-        # Round difference >= threshold is a punch KO
+        # Round difference >= threshold is a punch KO (can happen any round)
         if round_difference >= self.punch_ko_threshold:
             self.bout_ended_in_ko = True
             self.bout_ended_in_punch_ko = True
+            return True
+
+        # A tie last round resets the streak, so TKO is not possible
+        if self.previous_round_winner == 'tie':
+            return False
+
+        # Hitting a streak of consecutive wins is a TKO
+        if self.previous_round_winner == winner and self.round_streak == self.tko_threshold - 1:
+            self.bout_ended_in_ko = True
+            self.bout_ended_in_tko = True
             return True
 
         # If neither threshold met, we have a standard non-KO round
@@ -181,7 +182,7 @@ class Bout:
         red_corner_card = self.red_corner_deck.draw_card()
         blue_corner_card = self.blue_corner_deck.draw_card()
 
-        # Does the round involve a Reset. This creates an automated tie
+        # Does the round involve a Reset. This zeroes both fighters' meters after the round
         round_has_reset = red_corner_card.all_meter_reset or blue_corner_card.all_meter_reset
 
         round_has_cancel_card = blue_corner_card.is_cancel or red_corner_card.is_cancel

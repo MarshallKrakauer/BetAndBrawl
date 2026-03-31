@@ -15,14 +15,14 @@ class Bout:
     streak) or a punch KO (large single-round value difference).
 
     Attributes:
-        round_results (list[str]): Per-round outcome codes ('R', 'B', 'D', or '_').
+        round_results (list[str]): Per-round outcome codes ('R', 'B', 'T', or '_').
         punch_ko_threshold (int): Minimum value gap required for a punch KO.
         tko_threshold (int): Consecutive wins needed to trigger a TKO.
         red_corner_meter (int): Red corner's current accumulated meter bonus.
         blue_corner_meter (int): Blue corner's current accumulated meter bonus.
         red_corner_deck (FighterDeck): Draw deck for red corner.
         blue_corner_deck (FighterDeck): Draw deck for blue corner.
-        last_non_draw_winner (str): Winner of the most recent non-draw round.
+        last_non_tie_winner (str): Winner of the most recent non-tied round.
         round_number (int): Index of the current round (0-based).
         previous_round_winner (str): Winner of the immediately preceding round.
         round_streak (int): Current consecutive-win streak for the leading fighter.
@@ -85,7 +85,7 @@ class Bout:
         self.blue_corner_deck.shuffle_deck()
 
         # Initialize Fight variables to start of fight values
-        self.last_non_draw_winner = 'draw'
+        self.last_non_tie_winner = 'tie'
         self.round_number = 0
         self.previous_round_winner = 'Start of bout'
         self.round_streak = 0
@@ -112,8 +112,8 @@ class Bout:
         Returns:
             bool: True if a KO condition was met, False otherwise.
         """
-        # Draws can't possibly result in KO
-        if self.previous_round_winner == 'draw':
+        # Ties can't possibly result in KO
+        if self.previous_round_winner == 'tie':
             return False
         # Hitting a streak of three rounds is a KO
         if self.previous_round_winner == winner and self.round_streak == self.tko_threshold - 1:
@@ -137,15 +137,15 @@ class Bout:
         round_resulted_in_ko = self.check_for_ko(winner, card_difference)
 
         # Update streak
-        if winner != 'draw':
-            # Fighter won multiple rounds in row ,leading to possible TKO setup
+        if winner != 'tie':
+            # Fighter won multiple rounds in row, leading to possible TKO setup
             if self.previous_round_winner == winner:
                 self.round_streak += 1
             else:
                 self.round_streak = 1
         else:
-            # If the round was a draw, it ends the streak, no TKO is near
-            self.previous_round_winner = 'draw'
+            # If the round was a tie, it ends the streak, no TKO is near
+            self.previous_round_winner = 'tie'
             self.round_streak = 0
 
         # Update win counter
@@ -156,7 +156,7 @@ class Bout:
 
         self.previous_round_winner = winner
         if winner == 'blue_corner' or winner == 'red_corner':
-            self.last_non_draw_winner = winner
+            self.last_non_tie_winner = winner
 
         # Check for KO conditions
         if round_resulted_in_ko and self.verbose == 1:
@@ -177,7 +177,7 @@ class Bout:
         red_corner_card = self.red_corner_deck.draw_card()
         blue_corner_card = self.blue_corner_deck.draw_card()
 
-        # Does the round involve a Reset. This creates an automated draw
+        # Does the round involve a Reset. This creates an automated tie
         round_has_reset = red_corner_card.all_meter_reset or blue_corner_card.all_meter_reset
 
         round_has_cancel_card = blue_corner_card.is_cancel or red_corner_card.is_cancel
@@ -198,8 +198,8 @@ class Bout:
 
         # Most important_part, check for who won the round
         if round_has_cancel_card or (red_corner_round_value == blue_corner_round_value):
-            round_result = 'D'
-            self.previous_round_winner = 'draw'
+            round_result = 'T'
+            self.previous_round_winner = 'tie'
             self.round_streak = 0
 
         # Red Corner Wins the Round
@@ -221,7 +221,7 @@ class Bout:
         # 2 being the default, may be adjusted as game is tested
 
         if round_has_cancel_card:
-            pass  # Cancel card forces a draw, no meter effects applied
+            pass  # Cancel card forces a tie, no meter effects applied
         elif round_has_reset:
             self.red_corner_meter, self.blue_corner_meter = 0, 0
         else:
@@ -290,7 +290,7 @@ class Bout:
                 - 'decision_win' (int): 1 if the bout went to decision, else 0.
         """
         #if self.bout_winner == 'draw':
-        #    self.bout_winner = self.last_non_draw_winner
+        #    self.bout_winner = self.last_non_tie_winner
         if self.bout_ended_in_ko:
             decision_win = 0
         else:

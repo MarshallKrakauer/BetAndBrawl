@@ -74,7 +74,8 @@ def simulate_fights(num_fights=10_000,
                     tko_threshold=3,
                     punch_ko_threshold=PUNCH_KO_THRESHOLD,
                     bout_length=BOUT_LENGTH,
-                    meter_max=METER_MAX):
+                    meter_max=METER_MAX,
+                    fight_allows_draw=False):
     """Simulate a batch of fights and return outcome percentages as a DataFrame.
 
     Args:
@@ -86,6 +87,8 @@ def simulate_fights(num_fights=10_000,
         punch_ko_threshold (int): Minimum round-value gap for a punch KO. Defaults to PUNCH_KO_THRESHOLD.
         bout_length (int): Number of rounds per fight. Defaults to BOUT_LENGTH.
         meter_max (int): Maximum (and minimum as negative) meter value. Defaults to METER_MAX.
+        fight_allows_draw (bool): If False, bout draws are awarded to the last
+            round winner (or red_corner if all rounds tied). Defaults to False.
 
     Returns:
         pd.DataFrame: One row per result type with columns for outcome percentages
@@ -113,6 +116,7 @@ def simulate_fights(num_fights=10_000,
             punch_ko_threshold=punch_ko_threshold,
             bout_length=bout_length,
             meter_max=meter_max,
+            fight_allows_draw=fight_allows_draw,
         )
         bout.fight_bout()
         process_fight_result(bout, counters, fight_counter)
@@ -131,5 +135,6 @@ def simulate_fights(num_fights=10_000,
     df['punch_ko_threshold'] = punch_ko_threshold
     df['bout_length'] = bout_length
     df['meter_max'] = meter_max
+    df['fight_allows_draw'] = fight_allows_draw
     del df['count']
     return df

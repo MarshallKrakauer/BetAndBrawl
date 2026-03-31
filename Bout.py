@@ -32,6 +32,8 @@ class Bout:
         red_corner_wins (int): Number of rounds won by red corner.
         blue_corner_wins (int): Number of rounds won by blue corner.
         bout_winner (str): Final winner: 'red_corner', 'blue_corner', or 'draw'.
+        fight_allows_draw (bool): If False, a bout draw is awarded to the last
+            round winner instead. Defaults to False.
         verbose (int): Verbosity level; 1 prints round-by-round commentary.
     """
 
@@ -44,7 +46,8 @@ class Bout:
                  blue_corner_starting_meter=0,
                  tko_threshold=3,
                  bout_length=BOUT_LENGTH,
-                 meter_max=METER_MAX):
+                 meter_max=METER_MAX,
+                 fight_allows_draw=False):
         """Initialize a Bout between two fighters.
 
         Args:
@@ -64,6 +67,9 @@ class Bout:
                 Defaults to BOUT_LENGTH.
             meter_max (int): Maximum (and minimum, as negative) meter value allowed.
                 Defaults to METER_MAX.
+            fight_allows_draw (bool): If False, a bout-level draw is awarded to
+                the last round winner (or red_corner if all rounds were ties).
+                Defaults to False.
         """
 
         # Set up Rules of Fight
@@ -95,6 +101,8 @@ class Bout:
         self.red_corner_wins = 0
         self.blue_corner_wins = 0
         self.bout_winner = 'Draw'
+
+        self.fight_allows_draw = fight_allows_draw
 
         # Set verbosity: how much info will be printed out about the fight
         self.verbose = verbose
@@ -264,7 +272,14 @@ class Bout:
             elif self.red_corner_wins < self.blue_corner_wins:
                 self.bout_winner = 'blue_corner'
             else:
-                self.bout_winner = 'draw'
+                if self.fight_allows_draw:
+                    self.bout_winner = 'draw'
+                else:
+                    # Award to last round winner; fall back to red_corner if all rounds tied
+                    if self.last_non_tie_winner == 'tie':
+                        self.bout_winner = 'red_corner'
+                    else:
+                        self.bout_winner = self.last_non_tie_winner
         if self.bout_ended_in_ko:
             if self.bout_ended_in_tko:
                 win_method = 'KO (TKO)'

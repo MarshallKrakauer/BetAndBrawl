@@ -17,7 +17,7 @@ def create_table():
     expected_columns = {
         'id', 'result_type', 'red_meter', 'blue_meter', 'pct_of_outcomes',
         'tko_threshold', 'punch_ko_threshold', 'bout_length', 'meter_max',
-        'time_added', 'fight_id',
+        'fight_allows_draw', 'time_added', 'fight_id',
     }
     with get_connection() as conn:
         conn.execute("""
@@ -31,6 +31,7 @@ def create_table():
                 punch_ko_threshold  INTEGER,
                 bout_length         INTEGER,
                 meter_max           INTEGER,
+                fight_allows_draw   INTEGER,
                 time_added          TEXT,
                 fight_id            TEXT
             )

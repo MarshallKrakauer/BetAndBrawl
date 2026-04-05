@@ -59,6 +59,66 @@ red corner ko,75.0,1,-1,3,4,5,3,False
 red corner decision,15.1,1,-1,3,4,5,3,False
 blue corner ko,4.7,1,-1,3,4,5,3,False
 blue corner decision,5.2,1,-1,3,4,5,3,False
+draw,10.3,0,0,4,4,5,2,True
+red corner ko,29.5,0,0,4,4,5,2,True
+red corner decision,15.2,0,0,4,4,5,2,True
+blue corner ko,29.1,0,0,4,4,5,2,True
+blue corner decision,15.9,0,0,4,4,5,2,True
+draw,0.0,0,0,4,4,5,2,False
+red corner ko,29.5,0,0,4,4,5,2,False
+red corner decision,20.1,0,0,4,4,5,2,False
+blue corner ko,29.1,0,0,4,4,5,2,False
+blue corner decision,21.2,0,0,4,4,5,2,False
+draw,8.6,1,0,4,4,5,2,True
+red corner ko,51.2,1,0,4,4,5,2,True
+red corner decision,18.9,1,0,4,4,5,2,True
+blue corner ko,12.9,1,0,4,4,5,2,True
+blue corner decision,8.4,1,0,4,4,5,2,True
+draw,0.0,1,0,4,4,5,2,False
+red corner ko,51.2,1,0,4,4,5,2,False
+red corner decision,22.8,1,0,4,4,5,2,False
+blue corner ko,12.9,1,0,4,4,5,2,False
+blue corner decision,13.0,1,0,4,4,5,2,False
+draw,4.7,1,-1,4,4,5,2,True
+red corner ko,71.7,1,-1,4,4,5,2,True
+red corner decision,15.9,1,-1,4,4,5,2,True
+blue corner ko,4.5,1,-1,4,4,5,2,True
+blue corner decision,3.2,1,-1,4,4,5,2,True
+draw,0.0,1,-1,4,4,5,2,False
+red corner ko,71.7,1,-1,4,4,5,2,False
+red corner decision,18.1,1,-1,4,4,5,2,False
+blue corner ko,4.5,1,-1,4,4,5,2,False
+blue corner decision,5.7,1,-1,4,4,5,2,False
+draw,10.3,0,0,4,4,5,3,True
+red corner ko,29.5,0,0,4,4,5,3,True
+red corner decision,15.1,0,0,4,4,5,3,True
+blue corner ko,29.2,0,0,4,4,5,3,True
+blue corner decision,15.9,0,0,4,4,5,3,True
+draw,0.0,0,0,4,4,5,3,False
+red corner ko,29.5,0,0,4,4,5,3,False
+red corner decision,20.1,0,0,4,4,5,3,False
+blue corner ko,29.2,0,0,4,4,5,3,False
+blue corner decision,21.2,0,0,4,4,5,3,False
+draw,8.5,1,0,4,4,5,3,True
+red corner ko,51.4,1,0,4,4,5,3,True
+red corner decision,18.8,1,0,4,4,5,3,True
+blue corner ko,12.9,1,0,4,4,5,3,True
+blue corner decision,8.4,1,0,4,4,5,3,True
+draw,0.0,1,0,4,4,5,3,False
+red corner ko,51.4,1,0,4,4,5,3,False
+red corner decision,22.7,1,0,4,4,5,3,False
+blue corner ko,12.9,1,0,4,4,5,3,False
+blue corner decision,12.9,1,0,4,4,5,3,False
+draw,4.6,1,-1,4,4,5,3,True
+red corner ko,72.1,1,-1,4,4,5,3,True
+red corner decision,15.6,1,-1,4,4,5,3,True
+blue corner ko,4.5,1,-1,4,4,5,3,True
+blue corner decision,3.1,1,-1,4,4,5,3,True
+draw,0.0,1,-1,4,4,5,3,False
+red corner ko,72.1,1,-1,4,4,5,3,False
+red corner decision,17.8,1,-1,4,4,5,3,False
+blue corner ko,4.5,1,-1,4,4,5,3,False
+blue corner decision,5.6,1,-1,4,4,5,3,False
 draw,17.9,0,0,3,5,5,2,True
 red corner ko,19.0,0,0,3,5,5,2,True
 red corner decision,21.6,0,0,3,5,5,2,True
@@ -119,6 +179,66 @@ red corner ko,60.1,1,-1,3,5,5,3,False
 red corner decision,27.5,1,-1,3,5,5,3,False
 blue corner ko,3.0,1,-1,3,5,5,3,False
 blue corner decision,9.4,1,-1,3,5,5,3,False
+draw,17.9,0,0,4,5,5,2,True
+red corner ko,14.4,0,0,4,5,5,2,True
+red corner decision,26.1,0,0,4,5,5,2,True
+blue corner ko,15.0,0,0,4,5,5,2,True
+blue corner decision,26.6,0,0,4,5,5,2,True
+draw,0.0,0,0,4,5,5,2,False
+red corner ko,14.4,0,0,4,5,5,2,False
+red corner decision,34.6,0,0,4,5,5,2,False
+blue corner ko,15.0,0,0,4,5,5,2,False
+blue corner decision,36.0,0,0,4,5,5,2,False
+draw,14.4,1,0,4,5,5,2,True
+red corner ko,32.5,1,0,4,5,5,2,True
+red corner decision,35.0,1,0,4,5,5,2,True
+blue corner ko,4.5,1,0,4,5,5,2,True
+blue corner decision,13.5,1,0,4,5,5,2,True
+draw,0.0,1,0,4,5,5,2,False
+red corner ko,32.5,1,0,4,5,5,2,False
+red corner decision,41.3,1,0,4,5,5,2,False
+blue corner ko,4.5,1,0,4,5,5,2,False
+blue corner decision,21.6,1,0,4,5,5,2,False
+draw,8.4,1,-1,4,5,5,2,True
+red corner ko,52.9,1,-1,4,5,5,2,True
+red corner decision,31.2,1,-1,4,5,5,2,True
+blue corner ko,2.6,1,-1,4,5,5,2,True
+blue corner decision,5.0,1,-1,4,5,5,2,True
+draw,0.0,1,-1,4,5,5,2,False
+red corner ko,52.9,1,-1,4,5,5,2,False
+red corner decision,34.5,1,-1,4,5,5,2,False
+blue corner ko,2.6,1,-1,4,5,5,2,False
+blue corner decision,10.1,1,-1,4,5,5,2,False
+draw,17.9,0,0,4,5,5,3,True
+red corner ko,14.4,0,0,4,5,5,3,True
+red corner decision,26.1,0,0,4,5,5,3,True
+blue corner ko,15.0,0,0,4,5,5,3,True
+blue corner decision,26.6,0,0,4,5,5,3,True
+draw,0.0,0,0,4,5,5,3,False
+red corner ko,14.4,0,0,4,5,5,3,False
+red corner decision,34.5,0,0,4,5,5,3,False
+blue corner ko,15.0,0,0,4,5,5,3,False
+blue corner decision,36.0,0,0,4,5,5,3,False
+draw,14.3,1,0,4,5,5,3,True
+red corner ko,32.8,1,0,4,5,5,3,True
+red corner decision,34.9,1,0,4,5,5,3,True
+blue corner ko,4.5,1,0,4,5,5,3,True
+blue corner decision,13.4,1,0,4,5,5,3,True
+draw,0.0,1,0,4,5,5,3,False
+red corner ko,32.8,1,0,4,5,5,3,False
+red corner decision,41.2,1,0,4,5,5,3,False
+blue corner ko,4.5,1,0,4,5,5,3,False
+blue corner decision,21.4,1,0,4,5,5,3,False
+draw,8.3,1,-1,4,5,5,3,True
+red corner ko,53.4,1,-1,4,5,5,3,True
+red corner decision,30.7,1,-1,4,5,5,3,True
+blue corner ko,2.6,1,-1,4,5,5,3,True
+blue corner decision,5.0,1,-1,4,5,5,3,True
+draw,0.0,1,-1,4,5,5,3,False
+red corner ko,53.4,1,-1,4,5,5,3,False
+red corner decision,34.0,1,-1,4,5,5,3,False
+blue corner ko,2.6,1,-1,4,5,5,3,False
+blue corner decision,10.0,1,-1,4,5,5,3,False
 draw,23.4,0,0,3,6,5,2,True
 red corner ko,9.8,0,0,3,6,5,2,True
 red corner decision,28.1,0,0,3,6,5,2,True
@@ -179,6 +299,66 @@ red corner ko,45.8,1,-1,3,6,5,3,False
 red corner decision,40.0,1,-1,3,6,5,3,False
 blue corner ko,1.5,1,-1,3,6,5,3,False
 blue corner decision,12.7,1,-1,3,6,5,3,False
+draw,23.4,0,0,4,6,5,2,True
+red corner ko,3.7,0,0,4,6,5,2,True
+red corner decision,34.2,0,0,4,6,5,2,True
+blue corner ko,4.2,0,0,4,6,5,2,True
+blue corner decision,34.4,0,0,4,6,5,2,True
+draw,0.0,0,0,4,6,5,2,False
+red corner ko,3.7,0,0,4,6,5,2,False
+red corner decision,45.5,0,0,4,6,5,2,False
+blue corner ko,4.2,0,0,4,6,5,2,False
+blue corner decision,46.6,0,0,4,6,5,2,False
+draw,18.5,1,0,4,6,5,2,True
+red corner ko,15.5,1,0,4,6,5,2,True
+red corner decision,48.4,1,0,4,6,5,2,True
+blue corner ko,1.0,1,0,4,6,5,2,True
+blue corner decision,16.6,1,0,4,6,5,2,True
+draw,0.0,1,0,4,6,5,2,False
+red corner ko,15.5,1,0,4,6,5,2,False
+red corner decision,56.2,1,0,4,6,5,2,False
+blue corner ko,1.0,1,0,4,6,5,2,False
+blue corner decision,27.2,1,0,4,6,5,2,False
+draw,11.3,1,-1,4,6,5,2,True
+red corner ko,33.8,1,-1,4,6,5,2,True
+red corner decision,47.6,1,-1,4,6,5,2,True
+blue corner ko,0.5,1,-1,4,6,5,2,True
+blue corner decision,6.7,1,-1,4,6,5,2,True
+draw,0.0,1,-1,4,6,5,2,False
+red corner ko,33.8,1,-1,4,6,5,2,False
+red corner decision,51.9,1,-1,4,6,5,2,False
+blue corner ko,0.5,1,-1,4,6,5,2,False
+blue corner decision,13.8,1,-1,4,6,5,2,False
+draw,23.4,0,0,4,6,5,3,True
+red corner ko,3.7,0,0,4,6,5,3,True
+red corner decision,34.2,0,0,4,6,5,3,True
+blue corner ko,4.3,0,0,4,6,5,3,True
+blue corner decision,34.4,0,0,4,6,5,3,True
+draw,0.0,0,0,4,6,5,3,False
+red corner ko,3.7,0,0,4,6,5,3,False
+red corner decision,45.4,0,0,4,6,5,3,False
+blue corner ko,4.3,0,0,4,6,5,3,False
+blue corner decision,46.6,0,0,4,6,5,3,False
+draw,18.4,1,0,4,6,5,3,True
+red corner ko,15.8,1,0,4,6,5,3,True
+red corner decision,48.3,1,0,4,6,5,3,True
+blue corner ko,1.0,1,0,4,6,5,3,True
+blue corner decision,16.5,1,0,4,6,5,3,True
+draw,0.0,1,0,4,6,5,3,False
+red corner ko,15.8,1,0,4,6,5,3,False
+red corner decision,56.1,1,0,4,6,5,3,False
+blue corner ko,1.0,1,0,4,6,5,3,False
+blue corner decision,27.1,1,0,4,6,5,3,False
+draw,11.2,1,-1,4,6,5,3,True
+red corner ko,34.3,1,-1,4,6,5,3,True
+red corner decision,47.3,1,-1,4,6,5,3,True
+blue corner ko,0.5,1,-1,4,6,5,3,True
+blue corner decision,6.7,1,-1,4,6,5,3,True
+draw,0.0,1,-1,4,6,5,3,False
+red corner ko,34.3,1,-1,4,6,5,3,False
+red corner decision,51.5,1,-1,4,6,5,3,False
+blue corner ko,0.5,1,-1,4,6,5,3,False
+blue corner decision,13.7,1,-1,4,6,5,3,False
 draw,7.3,0,0,3,4,6,2,True
 red corner ko,35.6,0,0,3,4,6,2,True
 red corner decision,10.8,0,0,3,4,6,2,True
@@ -239,6 +419,66 @@ red corner ko,79.7,1,-1,3,4,6,3,False
 red corner decision,10.3,1,-1,3,4,6,3,False
 blue corner ko,5.9,1,-1,3,4,6,3,False
 blue corner decision,4.0,1,-1,3,4,6,3,False
+draw,7.6,0,0,4,4,6,2,True
+red corner ko,33.3,0,0,4,4,6,2,True
+red corner decision,13.0,0,0,4,4,6,2,True
+blue corner ko,33.2,0,0,4,4,6,2,True
+blue corner decision,12.9,0,0,4,4,6,2,True
+draw,0.0,0,0,4,4,6,2,False
+red corner ko,33.3,0,0,4,4,6,2,False
+red corner decision,16.8,0,0,4,4,6,2,False
+blue corner ko,33.2,0,0,4,4,6,2,False
+blue corner decision,16.7,0,0,4,4,6,2,False
+draw,5.6,1,0,4,4,6,2,True
+red corner ko,56.3,1,0,4,4,6,2,True
+red corner decision,15.7,1,0,4,4,6,2,True
+blue corner ko,15.4,1,0,4,4,6,2,True
+blue corner decision,7.1,1,0,4,4,6,2,True
+draw,0.0,1,0,4,4,6,2,False
+red corner ko,56.3,1,0,4,4,6,2,False
+red corner decision,18.2,1,0,4,4,6,2,False
+blue corner ko,15.4,1,0,4,4,6,2,False
+blue corner decision,10.2,1,0,4,4,6,2,False
+draw,3.0,1,-1,4,4,6,2,True
+red corner ko,76.5,1,-1,4,4,6,2,True
+red corner decision,12.1,1,-1,4,4,6,2,True
+blue corner ko,5.7,1,-1,4,4,6,2,True
+blue corner decision,2.8,1,-1,4,4,6,2,True
+draw,0.0,1,-1,4,4,6,2,False
+red corner ko,76.5,1,-1,4,4,6,2,False
+red corner decision,13.2,1,-1,4,4,6,2,False
+blue corner ko,5.7,1,-1,4,4,6,2,False
+blue corner decision,4.6,1,-1,4,4,6,2,False
+draw,7.6,0,0,4,4,6,3,True
+red corner ko,33.3,0,0,4,4,6,3,True
+red corner decision,12.9,0,0,4,4,6,3,True
+blue corner ko,33.3,0,0,4,4,6,3,True
+blue corner decision,12.9,0,0,4,4,6,3,True
+draw,0.0,0,0,4,4,6,3,False
+red corner ko,33.3,0,0,4,4,6,3,False
+red corner decision,16.8,0,0,4,4,6,3,False
+blue corner ko,33.3,0,0,4,4,6,3,False
+blue corner decision,16.7,0,0,4,4,6,3,False
+draw,5.6,1,0,4,4,6,3,True
+red corner ko,56.6,1,0,4,4,6,3,True
+red corner decision,15.5,1,0,4,4,6,3,True
+blue corner ko,15.4,1,0,4,4,6,3,True
+blue corner decision,7.0,1,0,4,4,6,3,True
+draw,0.0,1,0,4,4,6,3,False
+red corner ko,56.6,1,0,4,4,6,3,False
+red corner decision,18.0,1,0,4,4,6,3,False
+blue corner ko,15.4,1,0,4,4,6,3,False
+blue corner decision,10.0,1,0,4,4,6,3,False
+draw,3.0,1,-1,4,4,6,3,True
+red corner ko,76.8,1,-1,4,4,6,3,True
+red corner decision,11.8,1,-1,4,4,6,3,True
+blue corner ko,5.7,1,-1,4,4,6,3,True
+blue corner decision,2.7,1,-1,4,4,6,3,True
+draw,0.0,1,-1,4,4,6,3,False
+red corner ko,76.8,1,-1,4,4,6,3,False
+red corner decision,12.9,1,-1,4,4,6,3,False
+blue corner ko,5.7,1,-1,4,4,6,3,False
+blue corner decision,4.5,1,-1,4,4,6,3,False
 draw,13.9,0,0,3,5,6,2,True
 red corner ko,22.7,0,0,3,5,6,2,True
 red corner decision,20.0,0,0,3,5,6,2,True
@@ -299,6 +539,66 @@ red corner ko,65.8,1,-1,3,5,6,3,False
 red corner decision,22.3,1,-1,3,5,6,3,False
 blue corner ko,4.4,1,-1,3,5,6,3,False
 blue corner decision,7.5,1,-1,3,5,6,3,False
+draw,14.7,0,0,4,5,6,2,True
+red corner ko,17.6,0,0,4,5,6,2,True
+red corner decision,24.6,0,0,4,5,6,2,True
+blue corner ko,18.3,0,0,4,5,6,2,True
+blue corner decision,24.8,0,0,4,5,6,2,True
+draw,0.0,0,0,4,5,6,2,False
+red corner ko,17.6,0,0,4,5,6,2,False
+red corner decision,32.0,0,0,4,5,6,2,False
+blue corner ko,18.3,0,0,4,5,6,2,False
+blue corner decision,32.2,0,0,4,5,6,2,False
+draw,11.3,1,0,4,5,6,2,True
+red corner ko,37.2,1,0,4,5,6,2,True
+red corner decision,32.4,1,0,4,5,6,2,True
+blue corner ko,6.5,1,0,4,5,6,2,True
+blue corner decision,12.7,1,0,4,5,6,2,True
+draw,0.0,1,0,4,5,6,2,False
+red corner ko,37.2,1,0,4,5,6,2,False
+red corner decision,37.3,1,0,4,5,6,2,False
+blue corner ko,6.5,1,0,4,5,6,2,False
+blue corner decision,19.0,1,0,4,5,6,2,False
+draw,6.2,1,-1,4,5,6,2,True
+red corner ko,57.9,1,-1,4,5,6,2,True
+red corner decision,27.4,1,-1,4,5,6,2,True
+blue corner ko,3.7,1,-1,4,5,6,2,True
+blue corner decision,4.8,1,-1,4,5,6,2,True
+draw,0.0,1,-1,4,5,6,2,False
+red corner ko,57.9,1,-1,4,5,6,2,False
+red corner decision,29.7,1,-1,4,5,6,2,False
+blue corner ko,3.7,1,-1,4,5,6,2,False
+blue corner decision,8.6,1,-1,4,5,6,2,False
+draw,14.8,0,0,4,5,6,3,True
+red corner ko,17.6,0,0,4,5,6,3,True
+red corner decision,24.5,0,0,4,5,6,3,True
+blue corner ko,18.3,0,0,4,5,6,3,True
+blue corner decision,24.8,0,0,4,5,6,3,True
+draw,0.0,0,0,4,5,6,3,False
+red corner ko,17.6,0,0,4,5,6,3,False
+red corner decision,31.9,0,0,4,5,6,3,False
+blue corner ko,18.3,0,0,4,5,6,3,False
+blue corner decision,32.1,0,0,4,5,6,3,False
+draw,11.2,1,0,4,5,6,3,True
+red corner ko,37.6,1,0,4,5,6,3,True
+red corner decision,32.2,1,0,4,5,6,3,True
+blue corner ko,6.5,1,0,4,5,6,3,True
+blue corner decision,12.5,1,0,4,5,6,3,True
+draw,0.0,1,0,4,5,6,3,False
+red corner ko,37.6,1,0,4,5,6,3,False
+red corner decision,37.1,1,0,4,5,6,3,False
+blue corner ko,6.5,1,0,4,5,6,3,False
+blue corner decision,18.8,1,0,4,5,6,3,False
+draw,6.2,1,-1,4,5,6,3,True
+red corner ko,58.6,1,-1,4,5,6,3,True
+red corner decision,26.9,1,-1,4,5,6,3,True
+blue corner ko,3.7,1,-1,4,5,6,3,True
+blue corner decision,4.7,1,-1,4,5,6,3,True
+draw,0.0,1,-1,4,5,6,3,False
+red corner ko,58.6,1,-1,4,5,6,3,False
+red corner decision,29.2,1,-1,4,5,6,3,False
+blue corner ko,3.7,1,-1,4,5,6,3,False
+blue corner decision,8.5,1,-1,4,5,6,3,False
 draw,19.2,0,0,3,6,6,2,True
 red corner ko,12.9,0,0,3,6,6,2,True
 red corner decision,27.1,0,0,3,6,6,2,True
@@ -359,3 +659,63 @@ red corner ko,51.6,1,-1,3,6,6,3,False
 red corner decision,34.8,1,-1,3,6,6,3,False
 blue corner ko,2.4,1,-1,3,6,6,3,False
 blue corner decision,11.2,1,-1,3,6,6,3,False
+draw,20.3,0,0,4,6,6,2,True
+red corner ko,5.6,0,0,4,6,6,2,True
+red corner decision,33.9,0,0,4,6,6,2,True
+blue corner ko,6.1,0,0,4,6,6,2,True
+blue corner decision,34.1,0,0,4,6,6,2,True
+draw,0.0,0,0,4,6,6,2,False
+red corner ko,5.6,0,0,4,6,6,2,False
+red corner decision,43.8,0,0,4,6,6,2,False
+blue corner ko,6.1,0,0,4,6,6,2,False
+blue corner decision,44.4,0,0,4,6,6,2,False
+draw,15.7,1,0,4,6,6,2,True
+red corner ko,18.7,1,0,4,6,6,2,True
+red corner decision,47.1,1,0,4,6,6,2,True
+blue corner ko,1.9,1,0,4,6,6,2,True
+blue corner decision,16.6,1,0,4,6,6,2,True
+draw,0.0,1,0,4,6,6,2,False
+red corner ko,18.7,1,0,4,6,6,2,False
+red corner decision,53.7,1,0,4,6,6,2,False
+blue corner ko,1.9,1,0,4,6,6,2,False
+blue corner decision,25.7,1,0,4,6,6,2,False
+draw,9.4,1,-1,4,6,6,2,True
+red corner ko,38.1,1,-1,4,6,6,2,True
+red corner decision,44.7,1,-1,4,6,6,2,True
+blue corner ko,1.0,1,-1,4,6,6,2,True
+blue corner decision,6.9,1,-1,4,6,6,2,True
+draw,0.0,1,-1,4,6,6,2,False
+red corner ko,38.1,1,-1,4,6,6,2,False
+red corner decision,48.0,1,-1,4,6,6,2,False
+blue corner ko,1.0,1,-1,4,6,6,2,False
+blue corner decision,13.0,1,-1,4,6,6,2,False
+draw,20.3,0,0,4,6,6,3,True
+red corner ko,5.6,0,0,4,6,6,3,True
+red corner decision,33.8,0,0,4,6,6,3,True
+blue corner ko,6.2,0,0,4,6,6,3,True
+blue corner decision,34.1,0,0,4,6,6,3,True
+draw,0.0,0,0,4,6,6,3,False
+red corner ko,5.6,0,0,4,6,6,3,False
+red corner decision,43.8,0,0,4,6,6,3,False
+blue corner ko,6.2,0,0,4,6,6,3,False
+blue corner decision,44.4,0,0,4,6,6,3,False
+draw,15.6,1,0,4,6,6,3,True
+red corner ko,19.0,1,0,4,6,6,3,True
+red corner decision,46.9,1,0,4,6,6,3,True
+blue corner ko,1.9,1,0,4,6,6,3,True
+blue corner decision,16.4,1,0,4,6,6,3,True
+draw,0.0,1,0,4,6,6,3,False
+red corner ko,19.0,1,0,4,6,6,3,False
+red corner decision,53.5,1,0,4,6,6,3,False
+blue corner ko,1.9,1,0,4,6,6,3,False
+blue corner decision,25.5,1,0,4,6,6,3,False
+draw,9.2,1,-1,4,6,6,3,True
+red corner ko,38.8,1,-1,4,6,6,3,True
+red corner decision,44.2,1,-1,4,6,6,3,True
+blue corner ko,1.0,1,-1,4,6,6,3,True
+blue corner decision,6.8,1,-1,4,6,6,3,True
+draw,0.0,1,-1,4,6,6,3,False
+red corner ko,38.8,1,-1,4,6,6,3,False
+red corner decision,47.4,1,-1,4,6,6,3,False
+blue corner ko,1.0,1,-1,4,6,6,3,False
+blue corner decision,12.8,1,-1,4,6,6,3,False

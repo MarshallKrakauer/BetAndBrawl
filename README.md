@@ -24,7 +24,7 @@ Since betting games revolve around odds, I wrote this repository to simulate bou
 | Bout Length | Number of rounds (5 or 6) |
 | TKO Threshold | Consecutive wins needed for a TKO (3 or 4) |
 | Punch KO Threshold | Minimum value gap for a punch KO (4, 5, or 6) |
-| Meter Max | Maximum meter value allowed (2 or 3) |
+| Meter Max | Maximum meter value allowed (2 or 3). A maximum of 2 or 3 also implies a minimum of -2 or -3 |
 | Fight Allows Draw | Whether equal round wins results in a draw or decision |
 | Starting Meter | Optional meter advantage for red corner |
 

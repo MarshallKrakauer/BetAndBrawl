@@ -24,18 +24,36 @@ X_AXIS_OPTIONS = {
     "Red Corner Meter Advantage": "red_corner_meter_advantage",
 }
 
+DEFAULTS = {
+    "bout_length":                6,
+    "tko_threshold":              3,
+    "punch_ko_threshold":         5,
+    "meter_max":                  2,
+    "fight_allows_draw":          "Allows Draws",
+    "red_corner_meter_advantage": 0,
+}
+
 st.sidebar.header("X Axis")
 x_label = st.sidebar.selectbox("X Axis Variable", list(X_AXIS_OPTIONS.keys()))
 x_col   = X_AXIS_OPTIONS[x_label]
 
-# Build filters for every variable except the X axis one
 st.sidebar.header("Filters")
 active_filters = {}
 for label, col in X_AXIS_OPTIONS.items():
     if col == x_col:
         continue
     options = sorted(df[col].unique())
-    active_filters[col] = st.sidebar.selectbox(label, options)
+    default_val = DEFAULTS[col]
+    default_idx = options.index(default_val) if default_val in options else 0
+    if col == "fight_allows_draw":
+        tooltip = "By default, the bout draws when both fighters win the same number of rounds. Instead, we can choose a ruleset where, if the fighters win the same number of rounds, the most recent fighter to win receives a decision victory. In the rare case that all rounds tie, the red corner wins by decision."
+    elif col == "red_corner_meter_advantage":
+        tooltip = "0 means both fighters start with 0 meter; 1 means Red starts with 1 and Blue with 0; 2 means Red starts with 1 and Blue with -1"
+    else:
+        tooltip = None
+    active_filters[col] = st.sidebar.selectbox(
+        f"{label} (Default: {default_val})", options, index=default_idx, help=tooltip
+    )
 
 # Apply filters
 filtered = df.copy()

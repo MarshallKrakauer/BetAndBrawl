@@ -1,6 +1,10 @@
 # Bet & Brawl
 
-A card-based fighting game simulator. Two fighters draw cards each round, and the higher value (plus accumulated meter) wins the round. Fights can end via TKO (consecutive-round streak), punch KO (large single-round value gap), or go to a decision.
+__Bet & Brawl__ is a 2-4 player betting game. While most betting games focus on races (such as __Camel Up__; __Hot Streak__; and __Ready, Set, Bet__), __Bet & Brawl__ focuses on auto-battles. Players bet on a tournament between four auto-battling robots. In each round, players may bet on the winner and means of victory (i.e. decision or KO) for the bout or exchange cards in a fighter's deck to rig the upcoming bout.
+
+Bouts last up to 6 rounds. Each round consists of a single card draw. Two numbers decide the winner of each round: the value of the card and the meter. Each fighter's meter starts at 0, but the meter can rise or fall based on the pre-bout bets placed by the fighters or by effects written on the cards. The fighter's value for that round equals the number written on the card plus the meter. The higher value wins the round. If both values are the same (or one fighter plays a "cancel" card), the round ends in a tie. If the difference between values is at least five OR a fighter wins three consecutive rounds, the bout ends in a KO. Otherwise, the bout finishes after the 6th round. A fighter wins the bout if that fighter has won more rounds than the opponent. If both fighters win an equal number of rounds, the bout ends in a draw.
+
+Since betting games revolve around odds, I wrote this repository to simulate bouts. The simulations allow me to set fair odds. For example, if draws occur infrequently, I can increase the payoff for correctly betting on a draw. Additionally, the simulations test various rulesets. What if a KO occurs when the difference is 4 rather than 5? What if one fighter starts the bout with a 1 meter advantage? What if we removed draws altogether, and handed the bout to the last fighter who won a round? This repository answers all those questions and more.
 
 ## How It Works
 

@@ -78,7 +78,7 @@ else:
     red_win_df = red_win_df.rename(columns={x_col: x_label})
 
     def make_chart(df, y_col):
-        fig = px.bar(df, x=x_label, y=y_col)
+        fig = px.bar(df, x=x_label, y=y_col, color_discrete_sequence=["gray"])
         fig.update_xaxes(tickmode="array", tickvals=x_tickvals)
         return fig
 

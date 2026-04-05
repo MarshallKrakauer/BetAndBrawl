@@ -8,6 +8,9 @@ st.title("Bet & Brawl Rule Comparison")
 def load_data():
     df = pd.read_csv("all_results.csv")
     df["red_corner_meter_advantage"] = df["red_meter"] - df["blue_meter"]
+    df["fight_allows_draw"] = df["fight_allows_draw"].map(
+        {True: "Allows Draws", False: "No Draws: Decision to Last Round Winner"}
+    )
     return df
 
 df = load_data()
@@ -31,13 +34,8 @@ active_filters = {}
 for label, col in X_AXIS_OPTIONS.items():
     if col == x_col:
         continue
-    if col == "fight_allows_draw":
-        draw_label_map = {True: "Allows Draws", False: "No Draws: Decision to Last Round Winner"}
-        chosen_label = st.sidebar.selectbox(label, ["Allows Draws", "No Draws: Decision to Last Round Winner"])
-        active_filters[col] = {v: k for k, v in draw_label_map.items()}[chosen_label]
-    else:
-        options = sorted(df[col].unique())
-        active_filters[col] = st.sidebar.selectbox(label, options)
+    options = sorted(df[col].unique())
+    active_filters[col] = st.sidebar.selectbox(label, options)
 
 # Apply filters
 filtered = df.copy()
@@ -66,11 +64,13 @@ else:
         fig.update_xaxes(tickmode="array", tickvals=x_tickvals)
         return fig
 
-    st.subheader("% Draw")
-    st.plotly_chart(make_chart(draw_df, "% Draw"), use_container_width=True)
+    if active_filters.get("fight_allows_draw") != "No Draws: Decision to Last Round Winner":
+        st.subheader("% Draw")
+        st.plotly_chart(make_chart(draw_df, "% Draw"), use_container_width=True)
 
     st.subheader("% KO")
     st.plotly_chart(make_chart(ko_df, "% KO"), use_container_width=True)
 
-    st.subheader("% Red Corner Victory")
-    st.plotly_chart(make_chart(red_win_df, "% Red Corner Victory"), use_container_width=True)
+    if x_col == "red_corner_meter_advantage":
+        st.subheader("% Red Corner Victory")
+        st.plotly_chart(make_chart(red_win_df, "% Red Corner Victory"), use_container_width=True)

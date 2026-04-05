@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from PIL import Image
 
 st.title("Bet & Brawl Rule Comparison")
 
@@ -77,18 +78,36 @@ else:
     red_win_df["% Red Corner Victory"] = pivot["red corner ko"] + pivot["red corner decision"]
     red_win_df = red_win_df.rename(columns={x_col: x_label})
 
-    def make_chart(df, y_col):
-        fig = px.bar(df, x=x_label, y=y_col, color_discrete_sequence=["gray"])
+    def make_chart(df, y_col, color="gray"):
+        fig = px.bar(df, x=x_label, y=y_col, color_discrete_sequence=[color])
         fig.update_xaxes(tickmode="array", tickvals=x_tickvals)
         return fig
 
+    def add_symbols(fig, df, y_col, symbol):
+        n_bars = len(df)
+        for i, (_, row) in enumerate(df.iterrows()):
+            x_paper = (i + 0.5) / n_bars
+            y_paper = row[y_col] / 100
+            fig.add_layout_image(
+                source=symbol,
+                x=x_paper, y=y_paper,
+                xref="paper", yref="paper",
+                xanchor="center", yanchor="bottom",
+                sizex=0.2, sizey=0.2,
+                layer="above",
+            )
+
     if active_filters.get("fight_allows_draw") != "No Draws: Decision to Last Round Winner":
         st.subheader("% Draw")
-        st.plotly_chart(make_chart(draw_df, "% Draw"), use_container_width=True)
+        draw_fig = make_chart(draw_df, "% Draw")
+        add_symbols(draw_fig, draw_df, "% Draw", Image.open("draw_symbol.png"))
+        st.plotly_chart(draw_fig, use_container_width=True)
 
     st.subheader("% KO")
-    st.plotly_chart(make_chart(ko_df, "% KO"), use_container_width=True)
+    ko_fig = make_chart(ko_df, "% KO")
+    add_symbols(ko_fig, ko_df, "% KO", Image.open("knockout_symbol.png"))
+    st.plotly_chart(ko_fig, use_container_width=True)
 
     if x_col == "red_corner_meter_advantage":
         st.subheader("% Red Corner Victory")
-        st.plotly_chart(make_chart(red_win_df, "% Red Corner Victory"), use_container_width=True)
+        st.plotly_chart(make_chart(red_win_df, "% Red Corner Victory", color="red"), use_container_width=True)

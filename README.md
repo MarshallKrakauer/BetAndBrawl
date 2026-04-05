@@ -63,5 +63,5 @@ py -m streamlit run rule_comparison_dashboard.py
 | `Simulator.py` | Batch fight simulation |
 | `main.py` | Parameter sweep entry point |
 | `database.py` | SQLite result storage |
-| `fight_scenario_result_dashboard.py` | Streamlit dashboard |
-| `rule_comparison_dashboard.py` | Streamlit comparison dashboard |
+| `fight_scenario_result_dashboard.py` | Streamlit dashboard: compares odds of each outcome in single ruleset |
+| `rule_comparison_dashboard.py` | Streamlit dashboard: compares results between different rulesets |

@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Database
+fight_results.db
+
+# Generated output
+heatmap.png
+data_viz/heatmap.png

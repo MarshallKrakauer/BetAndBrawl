@@ -44,16 +44,16 @@ This sweeps all parameter combinations and outputs `all_results.csv`.
 
 ## Dashboards
 
-See [DASHBOARDS.md](DASHBOARDS.md) for full dashboard documentation.
+See [DASHBOARDS.md](data_viz/DASHBOARDS.md) for full dashboard documentation.
 
 **Fight Scenario Dashboard** — explore outcomes for a single rule set:
 ```
-py -m streamlit run fight_scenario_result_dashboard.py
+py -m streamlit run data_viz/fight_scenario_result_dashboard.py
 ```
 
 **Rule Comparison Dashboard** — compare how outcomes shift across different values of a rule parameter:
 ```
-py -m streamlit run rule_comparison_dashboard.py
+py -m streamlit run data_viz/rule_comparison_dashboard.py
 ```
 
 ## Project Structure
@@ -67,5 +67,7 @@ py -m streamlit run rule_comparison_dashboard.py
 | `Simulator.py` | Batch fight simulation |
 | `main.py` | Parameter sweep entry point |
 | `database.py` | SQLite result storage |
-| `fight_scenario_result_dashboard.py` | Streamlit dashboard: compares odds of each outcome in single ruleset |
-| `rule_comparison_dashboard.py` | Streamlit dashboard: compares results between different rulesets |
+| `data_viz/fight_scenario_result_dashboard.py` | Streamlit dashboard: compares odds of each outcome in single ruleset |
+| `data_viz/rule_comparison_dashboard.py` | Streamlit dashboard: compares results between different rulesets |
+| `data_viz/heatmap.py` | Seaborn heatmap of draw % and KO % across punch KO and TKO thresholds |
+| `data_viz/DASHBOARDS.md` | Dashboard documentation |

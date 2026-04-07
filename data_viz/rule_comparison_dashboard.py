@@ -1,7 +1,10 @@
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 from PIL import Image
+
+_DIR = os.path.dirname(os.path.abspath(__file__))
 
 st.title("Bet & Brawl Rule Comparison")
 
@@ -100,12 +103,12 @@ else:
     if active_filters.get("fight_allows_draw") != "No Draws: Decision to Last Round Winner":
         st.subheader("% Draw")
         draw_fig = make_chart(draw_df, "% Draw")
-        add_symbols(draw_fig, draw_df, "% Draw", Image.open("draw_symbol.png"))
+        add_symbols(draw_fig, draw_df, "% Draw", Image.open(os.path.join(_DIR, "draw_symbol.png")))
         st.plotly_chart(draw_fig, use_container_width=True)
 
     st.subheader("% KO")
     ko_fig = make_chart(ko_df, "% KO")
-    add_symbols(ko_fig, ko_df, "% KO", Image.open("knockout_symbol.png"))
+    add_symbols(ko_fig, ko_df, "% KO", Image.open(os.path.join(_DIR, "knockout_symbol.png")))
     st.plotly_chart(ko_fig, use_container_width=True)
 
     if x_col == "red_corner_meter_advantage":

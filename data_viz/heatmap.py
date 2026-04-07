@@ -1,9 +1,12 @@
+import os
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # --- Load & filter to default values ---
-df = pd.read_csv("all_results.csv")
+df = pd.read_csv(os.path.join(_DIR, "..", "all_results.csv"))
 
 defaults = df[
     (df["bout_length"] == 6) &
@@ -57,6 +60,6 @@ axes[1].set_xlabel("Punch KO Threshold")
 axes[1].set_ylabel("TKO Threshold")
 
 plt.tight_layout()
-plt.savefig("heatmap.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(_DIR, "heatmap.png"), dpi=150, bbox_inches="tight")
 plt.show()
 print("Saved to heatmap.png")

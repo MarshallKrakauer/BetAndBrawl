@@ -13,13 +13,26 @@ class GameDeck:
         card_list (list[Card]): The shuffled pool of available cards.
     """
 
-    def __init__(self):
-        """Initialize a GameDeck with all basic, charge-effect, and cancel cards, then shuffle."""
-        self.card_list = []
+    def __init__(self, all_ones_charge=False, num_cancel_cards=6):
+        """Initialize a GameDeck with all basic, charge-effect, and cancel cards, then shuffle.
 
-        # Initialize the basic cards with no effect
-        basic_cards = [
-            Card(1, False), Card(1, False), Card(1, False),
+        Args:
+            all_ones_charge (bool): If True, all value-1 cards carry a charge effect (+1 meter).
+                If False, only the effect value-1 cards charge; basic value-1 cards have no effect.
+            num_cancel_cards (int): Number of cancel cards to include in the deck. Defaults to 6.
+        """
+        self.card_list = []
+        self.card_list.extend(self._build_cancel_cards(num_cancel_cards))
+        self.card_list.extend(self._build_basic_cards(all_ones_charge))
+        self.card_list.extend(self._build_effect_cards())
+        self.shuffle_deck()
+
+    def _build_cancel_cards(self, num_cancel_cards):
+        return [Card(is_cancel=True) for _ in range(num_cancel_cards)]
+
+    def _build_basic_cards(self, all_ones_charge):
+        ones = [Card(1, True)] * 3 if all_ones_charge else [Card(1, False)] * 3
+        return ones + [
             Card(2, False), Card(2, False), Card(2, False),
             Card(3, False), Card(3, False), Card(3, False),
             Card(4, False), Card(4, False), Card(4, False),
@@ -27,41 +40,15 @@ class GameDeck:
             Card(6, False), Card(6, False), Card(6, False),
         ]
 
-        value_1_through_6_list = [
-            # Dupe 1 and 2
-            Card(1, True),
-            Card(1, True),
-            Card(1, True),
-
-            Card(2, True),
-            Card(2, True),
-            Card(2, True),
-
-            Card(3, True),
-            Card(3, True),
-
-            Card(4, True),
-            Card(4, True),
-
-            # Dupe 5 and 6
-            Card(5, True),
-            Card(5, True),
-            Card(5, True),
-
-            Card(6, True),
-            Card(6, True),
-            Card(6, True)
+    def _build_effect_cards(self):
+        return [
+            Card(1, True), Card(1, True), Card(1, True),
+            Card(2, True), Card(2, True), Card(2, True),
+            Card(3, True), Card(3, True),
+            Card(4, True), Card(4, True),
+            Card(5, True), Card(5, True), Card(5, True),
+            Card(6, True), Card(6, True), Card(6, True),
         ]
-
-        # Cancel cards force a draw for the round
-        cancel_cards = [Card(is_cancel=True) for _ in range(6)]
-        self.card_list.extend(cancel_cards)
-
-        # Include the main cards
-        self.card_list.extend(basic_cards)
-        self.card_list.extend(value_1_through_6_list)
-
-        self.shuffle_deck()
 
     def shuffle_deck(self):
         """Shuffle the card list in place."""

@@ -6,19 +6,21 @@ from Simulator import simulate_fights
 
 FIGHT_LENGTHS       = [5, 6]
 PUNCH_KO_THRESHOLDS = [4, 5, 6]
-TKO_THRESHOLDS      = [3, 4]
-METER_MAXES         = [2, 3]
+TKO_THRESHOLDS      = [3]  # [3, 4]
+METER_MAXES         = [2]
 STARTING_METERS     = [(0, 0), (1, 0), (1, -1)]   # (red, blue)
 FIGHT_ALLOWS_DRAW   = [True, False]
+ALL_ONES_CHARGE     = [True, False]
+NUM_CANCEL_CARDS    = [4, 6]
 
 if __name__ == '__main__':
     create_table()
 
     results = []
-    combos = list(product(FIGHT_LENGTHS, PUNCH_KO_THRESHOLDS, TKO_THRESHOLDS, METER_MAXES, STARTING_METERS, FIGHT_ALLOWS_DRAW))
+    combos = list(product(FIGHT_LENGTHS, PUNCH_KO_THRESHOLDS, TKO_THRESHOLDS, METER_MAXES, STARTING_METERS, FIGHT_ALLOWS_DRAW, ALL_ONES_CHARGE, NUM_CANCEL_CARDS))
     print(f"Running {len(combos)} parameter combinations...")
 
-    for bout_length, punch_ko_thresh, tko_thresh, meter_max, (red_meter, blue_meter), allows_draw in combos:
+    for bout_length, punch_ko_thresh, tko_thresh, meter_max, (red_meter, blue_meter), allows_draw, all_ones_charge, num_cancel_cards in combos:
         df = simulate_fights(
             num_fights=10_000,
             red_corner_starting_meter=red_meter,
@@ -28,6 +30,8 @@ if __name__ == '__main__':
             bout_length=bout_length,
             meter_max=meter_max,
             fight_allows_draw=allows_draw,
+            all_ones_charge=all_ones_charge,
+            num_cancel_cards=num_cancel_cards,
         )
         results.append(df)
 

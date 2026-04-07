@@ -75,7 +75,9 @@ def simulate_fights(num_fights=10_000,
                     punch_ko_threshold=5,
                     bout_length=6,
                     meter_max=2,
-                    fight_allows_draw=False):
+                    fight_allows_draw=False,
+                    all_ones_charge=False,
+                    num_cancel_cards=6):
     """Simulate a batch of fights and return outcome percentages as a DataFrame.
 
     Args:
@@ -101,7 +103,7 @@ def simulate_fights(num_fights=10_000,
     for _ in range(num_fights):
         red_deck = FighterDeck()
         blue_deck = FighterDeck()
-        game_deck = GameDeck()
+        game_deck = GameDeck(all_ones_charge=all_ones_charge, num_cancel_cards=num_cancel_cards)
 
         for _ in range(7):
             red_deck.add_card(game_deck.draw_card())
@@ -136,5 +138,7 @@ def simulate_fights(num_fights=10_000,
     df['bout_length'] = bout_length
     df['meter_max'] = meter_max
     df['fight_allows_draw'] = fight_allows_draw
+    df['all_ones_charge'] = all_ones_charge
+    df['num_cancel_cards'] = num_cancel_cards
     del df['count']
     return df

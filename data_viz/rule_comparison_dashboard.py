@@ -104,13 +104,13 @@ else:
         st.subheader("% Draw")
         draw_fig = make_chart(draw_df, "% Draw")
         add_symbols(draw_fig, draw_df, "% Draw", Image.open(os.path.join(_DIR, "draw_symbol.png")))
-        st.plotly_chart(draw_fig, use_container_width=True)
+        st.plotly_chart(draw_fig, width='stretch')
 
     st.subheader("% KO")
     ko_fig = make_chart(ko_df, "% KO")
     add_symbols(ko_fig, ko_df, "% KO", Image.open(os.path.join(_DIR, "knockout_symbol.png")))
-    st.plotly_chart(ko_fig, use_container_width=True)
+    st.plotly_chart(ko_fig, width='stretch')
 
     if x_col == "red_corner_meter_advantage":
         st.subheader("% Red Corner Victory")
-        st.plotly_chart(make_chart(red_win_df, "% Red Corner Victory", color="red"), use_container_width=True)
+        st.plotly_chart(make_chart(red_win_df, "% Red Corner Victory", color="red"), width='stretch')
